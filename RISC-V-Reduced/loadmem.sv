@@ -4,12 +4,20 @@ module loadmem #(
 ) (
     input logic [D_WIDTH-1:0]ramout,
     input logic [2:0] addrmode,
-    input logic [1:0] selectbits,
+    input logic [31:0] address,
+    input logic [1:0] selectbits, //instruction[1:0]%4 in cpu.sv
     output logic [D_WIDTH-1:0] dout
 );
 
+    always_comb begin
+        case (addrmode)
+            3'b000: dout = {{5'd24{ramout[selectbits*8 + 7]}}, ramout[selectbits*8 + 7:selectbits*8]}//load byte
 
-
+            default: begin
+                default: 
+            end
+        endcase
+    end
 
 endmodule
 
