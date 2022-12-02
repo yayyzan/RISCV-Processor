@@ -11,5 +11,5 @@ module controlunit (
     output logic resultsrc
 );
 
-
+  
 endmodule
