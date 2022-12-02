@@ -2,11 +2,9 @@ module ram #(
     parameter A_WIDTH = 32,
     D_WIDTH = 8
 ) (
-    input logic [A_WIDTH-1:0] address,
+    input logic [A_WIDTH-1:0] address, wd,
     input logic [2:0] bytes,
-    input logic clk,
-    input logic we,
-    input logic [31:0] wd,
+    input logic clk, we,
     output logic [31:0] dout
 );
 

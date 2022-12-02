@@ -2,9 +2,7 @@
 module pcountunit #(
     parameter WIDTH = 32
 ) (
-    input logic pcsrc,
-    input logic clk,
-    input logic rst,
+    input logic pcsrc, clk, rst,
     input logic [WIDTH-1:0] immop,
     output logic [WIDTH-1:0] pc
 );

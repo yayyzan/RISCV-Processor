@@ -5,7 +5,7 @@ module instrmem #(
     input [A_WIDTH-1:0] address,
     output [31:0] dout
 );
-  logic [D_WIDTH-1:0] rom_array[2000:0];
+  logic [D_WIDTH-1:0] rom_array [2000:0];
 
   initial begin
     $display("Loading rom.");

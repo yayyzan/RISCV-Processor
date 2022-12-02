@@ -3,9 +3,7 @@ module alu #(
 ) (
     input logic alusrc,
     input logic [2:0] aluctrl,
-    input logic [D_WIDTH-1:0] aluop1,
-    input logic [D_WIDTH-1:0] immop,
-    input logic [D_WIDTH-1:0] regop2,
+    input logic [D_WIDTH-1:0] aluop1, immop, regop2,
     output logic [D_WIDTH-1:0] aluout,
     output logic eq
 );

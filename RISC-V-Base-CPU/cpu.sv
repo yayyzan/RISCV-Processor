@@ -1,31 +1,15 @@
 module cpu #(
     parameter WIDTH = 32
 ) (
-    input logic clk,
-    input logic rst,
-    output logic [WIDTH-1:0] a0_output,
-    output logic [WIDTH-1:0] rf_dout1,
-    output logic [WIDTH-1:0] rf_dout2,
-    output logic [WIDTH-1:0] interm_immop,
+    input logic clk, rst,
     output logic [4:0] rd_add,
-    output logic [WIDTH-1:0] prog_addr,
-    output logic [WIDTH-1:0] interm_ins,
-    output logic [WIDTH-1:0] rout_test
-
+    output logic [WIDTH-1:0] prog_addr, interm_ins, rout_test, a0_output, rf_dout1, rf_dout2, interm_immop
 );
 
-  logic [WIDTH-1:0] interm_aluout;
-  logic [2:0] interm_aluctrl;
-  logic [2:0] interm_immsrc;
-  logic interm_alusrc;
-  logic interm_eq;
-  logic interm_pcsrc;
-  logic write_en;
-  logic [2:0] inter_addrmode;
-  logic interm_memwrite;
-  logic interm_resultsrc;
-  logic [WIDTH-1:0] result = interm_resultsrc ? rout_test : interm_aluout;
-
+  wire [WIDTH-1:0] interm_aluout, result = interm_resultsrc ? rout_test : interm_aluout;
+  wire [2:0] interm_aluctrl, interm_immsrc, inter_addrmode;
+  wire interm_memwrite, interm_resultsrc, write_en, interm_pcsrc, interm_eq, interm_alusrc;
+  
   assign rd_add = interm_ins[19:15];
 
   controlunit ctrlunit (
