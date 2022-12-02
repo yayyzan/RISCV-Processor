@@ -7,7 +7,7 @@ Initialized the git repo with branches for each feature with our team.
 
 After a discussion of assigning tasks to each person, I am now responsible for data memory.  
 
-Designed the instructions for all types of load and write with omar.  
+Designed the instructions for all types of load and store with omar.  
 
 Since we should not do bit manipulation inside the ram, I am going to make seperate module to do bit manipulation for loadmem and storemem. The design is shown as below.  
 
