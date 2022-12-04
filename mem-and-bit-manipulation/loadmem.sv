@@ -35,9 +35,9 @@ module loadmem #(
 
       3'b101: //load half unsigned
         case(selectbytes) //dout = (selectbits!=3)?{{4'd16{ramout[selectbits*8 + 15]}}, ramout[selectbits*8 + 15:selectbits*8]}:0
-          2'b00: dout = {{5'd16{ramout[0]}}, ramout[15:0]}; //select byte 00
-          2'b01: dout = {{5'd16{ramout[0]}}, ramout[23:8]}; //select byte 01
-          2'b10: dout = {{5'd16{ramout[0]}}, ramout[31:16]}; //select byte 10
+          2'b00: dout = {{5'd16{1'b0}}, ramout[15:0]}; //select byte 00
+          2'b01: dout = {{5'd16{1'b0}}, ramout[23:8]}; //select byte 01
+          2'b10: dout = {{5'd16{1'b0}}, ramout[31:16]}; //select byte 10
           2'b11: dout = 0; //complete all cases
         endcase
 
