@@ -44,8 +44,9 @@ module loadmem #(
       3'b010: dout = ramout; //load word
 
       default: begin
-        dout = ramout;//load word
+        dout = ramout; //load word
       end
     endcase
   end
+  
 endmodule
