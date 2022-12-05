@@ -15,11 +15,11 @@ always_comb begin
     regwrite = opcode == 7'h13 | opcode == 7'h03 | opcode == 7'h33 | opcode >= 7'h67; // will be 1 for either jump instruction, R-type, I-type, and load instructions
     alusrc = opcode == 7'h03 | opcode == 7'h13 | opcode == 7'h23 | opcode == 7'h67; // will be 1 for any I-type, load, and store instruction. But only 1 for jalr from the jump instructions because an immediate offset exists
     memwrite = opcode == 7'h23; // only for for store instructions
-    resultsrc = opcode == 7'h03; // only one for load instructions, otherwise 0 and result is taken from alu
-    pcsrc = opcode >= 7'h67 | (opcode == 7'h63 & ((!eq & (funct3 == 3'h0 | funct3 == 3'h5 | funct3 == 3'h7)) | (eq & (funct3 == 3'h1 | funct3 == 3'h4 | funct3 == 3'h6)))); // pcsrc depends on alu implementation of eq. funct3 must be integrated to distingush between instructions called for each branch and the respective value of eq. pcsrc will also be one for either jump instruction
-    jbmux = opcode == 7'h67; // select for jalr only. 1 for jalr instruction as immediate offset exixts
+    resultsrc = opcode == 7'h03; // 1 for load instructions, otherwise 0 and result is taken from alu
+    pcsrc = opcode >= 7'h67 | (opcode == 7'h63 & ((!eq & (funct3 == 3'h0 | funct3 == 3'h5 | funct3 == 3'h7)) | (eq & (funct3 == 3'h1 | funct3 == 3'h4 | funct3 == 3'h6)))); // pcsrc depends on alu implementation of eq. funct3 must be integrated to distingush between each branch and the respective value of eq. pcsrc will also be one for either jump instruction
+    jbmux = opcode == 7'h67; // select for jalr only. 1 for jalr instruction as immediate offset exists
     pcwritemux = opcode >= 7'h67; // chooses between writing register with PC+4 or result from alu or load instruction
-    addrmode = funct3; // addressing mode for load and store instructions. This is sufficient
+    addrmode = funct3; // addressing mode for load and store instructions. this is sufficient
     case (opcode) // chooses immsrc depending on instruction type
       7'h13 : immsrc = 3'h0; // imm
       7'h03 : immsrc = 3'h0; // load
@@ -45,7 +45,7 @@ always_comb begin // aluop decided previously, depending on type of instruction 
         endcase
     default: case (funct3) // imm
     3'h5 : aluctrl = {funct7, 3'h5}; // 1101 (shift right arth) if funct7 is 1, else 101 (shift right log).
-    default: aluctrl = {1'h0, funct3}; // no longer dependant on funct6
+    default: aluctrl = {1'h0, funct3}; // no longer dependant on funct7
     endcase
 endcase
 end
