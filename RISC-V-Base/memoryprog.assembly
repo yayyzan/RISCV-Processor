@@ -1,0 +1,16 @@
+main:
+	addi a0, zero, 0xff
+    addi a0, a0, 0xff
+    addi a0, a0, 0xff
+    addi a0, a0, 0xff
+    addi a0, a0, 0xff
+    addi a0, a0, 0xff
+    addi a0, a0, 0xff //will keep adding until 0x1ee1 
+    sh a0, 0xE(zero)
+    sh a0, 0xC(zero)
+    lw a1, 0xC(zero)
+   	lhu a2, 0xD(zero)
+    lh a2, 0xD(zero)
+	lb a3, 0xF(zero) 
+    sw a2, 0x10(zero)
+    lw a3, 0x10(zero)
