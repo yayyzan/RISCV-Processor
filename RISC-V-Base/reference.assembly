@@ -1,0 +1,41 @@
+addi a1, zero, 1
+beq a1, zero, ijump
+bne zero, zero, ijump
+blt a1, zero, ijump
+bge zero, a1, ijump 
+bltu a1, zero, ijump 
+bgeu zero, a1, ijump 
+lw a2, 0(zero)
+srai a2, a2, 1
+slli a2, a2, 1 
+slt a2, a2, zero
+sltu a2, a2, zero
+
+beq a2, zero, passed1
+addi a4, zero, 99
+
+passed1:
+bne a1, a2, passed2
+addi a4, zero, 99
+
+passed2:
+blt a2, a1, passed3
+addi a4, zero, 99
+
+passed3:
+bge a1, a2, passed4
+addi a4, zero, 99
+
+passed4:
+bltu a2, a1, passed5
+addi a4, zero, 99
+
+passed5:
+bgeu a1, a2, passed6
+addi a4, zero, 99
+
+passed6:
+addi a3, zero, 16
+
+ijump:
+addi a4, zero, 99
