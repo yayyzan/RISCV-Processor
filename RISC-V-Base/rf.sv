@@ -10,7 +10,8 @@ module rf #(
     input logic [D_WIDTH-1:0] wd3,
     output logic [D_WIDTH-1:0] a0,
     output logic [D_WIDTH-1:0] rd1,
-    output logic [D_WIDTH-1:0] rd2
+    output logic [D_WIDTH-1:0] rd2,
+    input logic trigger
 );
 
     logic [D_WIDTH-1:0] rf_array [2**A_WIDTH-1:0];
@@ -30,7 +31,8 @@ module rf #(
 
 
     always_ff @(posedge clk) begin
-        // $display("a0:", a0 , " a1: ", rf_array[11], " a2: ", rf_array[12], " din: ", wd3);
+        // $display("x8: %h\t", rf_array[8], " a0:%h \t", a0 ," a1: %h\t", rf_array[11], " a2: %h\t", rf_array[12], "a3: %h\t", rf_array[13], "a4: %h\t", rf_array[14], "a5: %h\t", rf_array[15], "a6: %h\t", rf_array[16]);
+        rf_array[9] <= {{31'b0}, trigger};
         if(we3) rf_array[ad3] <= wd3; 
     end
     
