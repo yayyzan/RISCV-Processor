@@ -4,8 +4,8 @@
 #include <iostream>
 #include <iomanip>
 
-// #include "vbuddy.cpp"     // include vbuddy code
-#define MAX_SIM_CYC 100
+#include "vbuddy.cpp"     // include vbuddy code
+#define MAX_SIM_CYC 1000000000
 
 int main(int argc, char **argv, char **env) {
   int simcyc;     // simulation clock count
@@ -26,6 +26,10 @@ int main(int argc, char **argv, char **env) {
   cpu->clk = 0;
   cpu->rst = 0;
 
+  if (vbdOpen()!=1) return(-1);
+  vbdHeader("L3T2:Delay");
+  vbdSetMode(0);   
+
 
   for (simcyc = 0; simcyc < MAX_SIM_CYC; simcyc++) {
 
@@ -34,17 +38,20 @@ int main(int argc, char **argv, char **env) {
       cpu->clk = !cpu->clk;
       cpu->eval ();
     }
+    vbdCycle(simcyc);
+    vbdBar(cpu->a0_output);
+    cpu->trigger = vbdFlag() || vbdGetkey() == 't';
+    // std::stringstream stream;
+    // stream << std::hex << cpu->a0_output;
+    // std::string result(stream.str());
 
-    std::stringstream stream;
-    stream << std::hex << cpu->a0_output;
-    std::string result(stream.str());
+    // std::cout << "a0out:  " << result << std::endl;
 
-    std::cout << "a0out:  " << result << std::endl;
 
     if (Verilated::gotFinish())  exit(0);
-
   }
 
+    vbdClose();     
     tfp->close(); 
     exit(0);
 }
