@@ -1,0 +1,67 @@
+    addi a2, zero, 0x1  init: 
+    addi x8, zero, 0x1
+    addi a4, zero, 25
+    addi a7, zero, 255
+    addi a6, a6, 1 delay:
+    JAL a5, counter 
+    bne a6, a2, delay 
+    sub a6, a6, a6
+    sub a0, a0, a0
+    slli t3, a2, 29 main:
+    srli t3, t3, 28
+    srli t4, t3, 0x3
+    slli t5, a2, 28
+    srli t5, t5, 31
+    xor  t6, t4, t5
+    add a2, t3, t6
+    bne x9, x8, main
+    addi a0, zero, 1
+    jal a5, counter subtick:
+    slli t1, a0, 1
+    addi a0, t1, 1
+    beq a0, a7, delay
+    JAL t0, subtick
+    addi a3, a3, 1 counter:
+    bne  a3, a4, counter 
+    sub a3, a3, a3
+    jalr t0, a5, 0
+
+init: 
+    addi a2, zero, 0x1 
+    addi x8, zero, 0x1
+    addi a4, zero, 25
+    addi a7, zero, 255
+
+delay:
+    addi a6, a6, 1 
+    JAL a5, counter 
+    bne a6, a2, delay 
+    sub a6, a6, a6
+    sub a0, a0, a0
+
+main:
+    slli t3, a2, 29
+    srli t3, t3, 28
+    srli t4, t3, 0x3
+    slli t5, a2, 28
+    srli t5, t5, 31
+    xor  t6, t4, t5
+    add a2, t3, t6
+    bne x9, x8, main
+    addi a0, zero, 1
+
+subtick:
+    jal a5, counter
+    slli t1, a0, 1
+    addi a0, t1, 1
+    beq a0, a7, delay
+    JAL t0, subtick
+    
+counter:
+    addi a3, a3, 1 
+    bne  a3, a4, counter 
+    sub a3, a3, a3
+    jalr t0, a5, 0
+    
+    
+    
