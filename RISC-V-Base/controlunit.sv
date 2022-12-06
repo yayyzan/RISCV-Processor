@@ -1,124 +1,53 @@
-module controlunit (
-    input logic [31:0] instruction,
-    input logic eq,
-    output logic regwrite,
-    output logic [2:0] aluctrl,
-    output logic alusrc,
-    output logic pcsrc,
-    output logic [2:0] immsrc,
-    output logic memwrite,
-    output logic [2:0] addrmode,
-    output logic resultsrc
+module controlunit(
+    input logic eq, funct7, // funct7 extracted from instruction, eq from alu
+    input logic [2:0] funct3, // fucnt3 extracted from instruction
+    input logic [6:0] opcode, // opcode extracted from instruction
+    output logic pcsrc, resultsrc, memwrite, alusrc, regwrite, jbmux, pcwritemux, 
+    output logic [2:0] immsrc, addrmode,
+    output logic [3:0] aluctrl
 );
-  logic [  6:0] opcode;
-  logic [  2:0] funct3;
-  logic [31:25] funct7;
-  logic [  1:0] aluop;
 
-  always_comb begin
-    funct3  = instruction[14:12];
-    opcode  = instruction[6:0];
-    aluctrl = 3'b000;
-    case (opcode)
-      7'd51: begin  //register-register ops
-        funct7 = instruction[31:25];
-        regwrite = 1'b1;
-        immsrc = 3'b111;
-        alusrc = 1'b1;
-        memwrite = 1'b0;
-        resultsrc = 1'b0;
-        pcsrc = 1'b0;
-        aluop = 2'b10;
-      end
+wire [1:0] aluop = {(opcode == 7'h33 | opcode == 7'h13), (opcode == 7'h63 | opcode == 7'h13)};
 
-      7'd3: begin  //load ops
-        regwrite = 1'b1;
-        immsrc = 3'b000;
-        alusrc = 1'b1;
-        memwrite = 1'b0;
-        resultsrc = 1'b1;
-        pcsrc = 1'b0;
-        aluop = 00;
-        addrmode = funct3;
-      end
+// aluop tells the decoder which alu instruction is taking place. 01 for B-type, 10 for R-type, 11 for I-type (imm), 00 otherwise, for example load
 
-      7'd19: begin  //alu imm ops
-        regwrite = 1'b1;
-        alusrc = 1'b1;
-        aluop = 2'b11;
-        immsrc = 3'b000;
-        pcsrc = 1'b0;
-        memwrite = 1'b0;
-        resultsrc = 1'b0;
-      end
-
-      7'd35: begin  //str ops
-        regwrite = 1'b0;
-        immsrc = 3'b010;
-        alusrc = 1'b1;
-        memwrite = 1'b1;
-        pcsrc = 1'b0;
-        aluop = 00;
-        addrmode = funct3;
-      end
-
-      7'd99: begin  //branch ops
-        aluop = 01;
-        regwrite = 1'b0;
-        immsrc = 3'b011;
-        alusrc = 1'b0;
-        memwrite = 1'b0;
-        case (funct3)
-          3'b000:  pcsrc = eq;
-          3'b001:  pcsrc = !eq;
-          // 3'b010:
-          // 3'b011:
-          // 3'b100:
-          // 3'b101:
-          // 3'b110:
-          // 3'b111:
-          default: pcsrc = 1'b0;
-        endcase
-
-      end
-      // 7'd23:
-      // 7'd55:
-      // 7'd103:
-      // 7'd111:
-      default: begin
-        funct3 = 3'b0;
-        funct7 = 7'b0;
-        pcsrc = 1'b0;
-        regwrite = 1'b0;
-        alusrc = 1'b1;
-        immsrc = 3'b111;
-        memwrite = 1'b0;
-      end
+always_comb begin
+    regwrite = opcode == 7'h13 | opcode == 7'h03 | opcode == 7'h33 | opcode >= 7'h67; // will be 1 for either jump instruction, R-type, I-type, and load instructions
+    alusrc = opcode == 7'h03 | opcode == 7'h13 | opcode == 7'h23 | opcode == 7'h67; // will be 1 for any I-type, load, and store instruction. But only 1 for jalr from the jump instructions because an immediate offset exists
+    memwrite = opcode == 7'h23; // only for for store instructions
+    resultsrc = opcode == 7'h03; // 1 for load instructions, otherwise 0 and result is taken from alu
+    pcsrc = opcode >= 7'h67 | (opcode == 7'h63 & ((!eq & (funct3 == 3'h0 | funct3 == 3'h5 | funct3 == 3'h7)) | (eq & (funct3 == 3'h1 | funct3 == 3'h4 | funct3 == 3'h6)))); // pcsrc depends on alu implementation of eq. funct3 must be integrated to distingush between each branch and the respective value of eq. pcsrc will also be 1 for either jump instruction
+    jbmux = opcode == 7'h67; // select for jalr only. 1 for jalr instruction as immediate offset exists
+    pcwritemux = opcode >= 7'h67; // chooses between writing register with PC+4 or result from alu or load instruction
+    addrmode = funct3; // addressing mode for load and store instructions. this is sufficient
+    case (opcode) // chooses immsrc depending on instruction type
+      7'h13 : immsrc = 3'h0; // imm
+      7'h03 : immsrc = 3'h0; // load
+      7'h23 : immsrc = 3'h2; // store
+      7'h63 : immsrc = 3'h3; // branch
+      7'h33 : immsrc = 3'h7; // reg
+      default: immsrc = 3'h4; // jump
     endcase
-  end
+end
 
-  always_comb begin
+always_comb begin // aluop computed previously, depending on type of instruction and the respective funct3 value, aluctrl is determined
     case (aluop)
-
-      2'b00: aluctrl = 3'b000;  // load/ str
-      2'b01: aluctrl = 3'b111;  //branch
-      2'b10: begin  // register - register
-        case (funct3)
-          3'b000: aluctrl = opcode[5] & funct7[5] ? 3'b001 : 3'b000;  // add or sub  
-          // 3'b001: 
-          3'b010: aluctrl = 3'b101;  //slt
-          // 3'b011: 
-          // 3'b100:
-          // 3'b101:
-          3'b110: aluctrl = 3'b011;  //or
-          3'b111: aluctrl = 3'b010;  //and
-          default aluctrl = 3'b000;
+        2'h0 : aluctrl = 4'h0; // load and store
+        2'h1 : case (funct3[2]) // branch funct3[2] is only needed
+            1'h0 : aluctrl = 4'h4; // xor to test equality
+            1'h1 : aluctrl = 4'h2; // slt to test less than signed
+            default: aluctrl = 4'h3; // slt unsigned to test less than unsigned
+        endcase 
+        2'h2 : case (funct3) // reg
+            3'h0 : aluctrl = {funct7, 3'h0}; // 1000 (sub) if funct7 is 1, else 0 (add)
+            3'h5 : aluctrl = {funct7, 3'h5}; // 1101 (shift right arth) if funct7 is 1, else 101 (shift right log)
+        default: aluctrl = {1'h0, funct3}; // no longer dependent on funct7
         endcase
-      end
-      default: begin // will automatically set aluctrl to funct 3 (assuming that any other instruction is immediate), this may need to change when U and J are implemented
-        aluctrl = funct3;
-      end
+    default: case (funct3) // imm
+    3'h5 : aluctrl = {funct7, 3'h5}; // 1101 (shift right arth) if funct7 is 1, else 101 (shift right log).
+    default: aluctrl = {1'h0, funct3}; // no longer dependent on funct7
     endcase
-  end
+endcase
+end
 
 endmodule
