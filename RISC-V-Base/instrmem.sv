@@ -5,11 +5,12 @@ module instrmem #(
     input [A_WIDTH-1:0] address,
     output [31:0] dout
 );
-  logic [D_WIDTH-1:0] rom_array[2000:0];
+
+  logic [D_WIDTH-1:0] rom_array[32'hBFC00FFF:32'hBFC00000]; 
 
   initial begin
     $display("Loading rom.");
-    $readmemh("counter.hex", rom_array);
+    $readmemh("f1.hex", rom_array);
     $display("Program written to ROM successfully");
   end
 
