@@ -48,9 +48,10 @@ module controlunit (
       2'h2:
       case (funct3)  // reg
         3'h0: aluctrl = {funct7, 3'h0};  
+        3'h5:
         aluctrl = {
           funct7, 3'h5
-        };  
+        };
         default: aluctrl = {1'h0, funct3};  
       endcase
       default:
