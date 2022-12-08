@@ -7,7 +7,7 @@ module controlunit (
     output logic [2:0] immsrc, addrmode
 );
 
-  wire [1:0] aluop = {(opcode == 7'h33 | opcode == 7'h13), (opcode == 7'h63 | opcode == 7'h13)};
+  wire [1:0] aluop = {(opcode == 7'h33 | opcode == 7'h13), opcode == 7'h63};
 
   always_comb begin
     regwrite = opcode == 7'h13 | opcode == 7'h03 | opcode == 7'h33 | opcode >= 7'h67; 
@@ -31,32 +31,11 @@ module controlunit (
   always_comb begin // aluctrl
     case (aluop)
       2'h0: aluctrl = 4'h0;  // load and store
-      2'h1:
-      case (funct3[2]) // branch
-        1'h0: aluctrl = 4'h4;  // xor to test equality
-        1'h1: aluctrl = 4'h2;  // slt 
-        default: aluctrl = 4'h3;  // slt unsigned 
-      endcase
-      2'h2:
-      case (funct3)  // reg
-        3'h0: aluctrl = {funct7, 3'h0};  
-        3'h5:
-        aluctrl = {
-          funct7, 3'h5
-        };
-        default: aluctrl = {1'h0, funct3};  
-      endcase
-      default:
-      case (funct3)  // imm
-        3'h5:
-        aluctrl = {
-          funct7, 3'h5
-        };  
-        default: aluctrl = {1'h0, funct3};  
-      endcase
+      2'h1: aluctrl = {1'h0, !funct3[2], funct3[2], funct3[1]}; // branch
+      2'h2: aluctrl = {funct7 & ((opcode == 7'h13 & funct3 == 3'b101) | (opcode == 7'h33 & (funct3 == 3'b101 | funct3 == 3'b000))), funct3}; // reg or imm
     endcase
   end
-
+    
   // always_ff @(posedge clk) begin
   //   $display("eq: %h", eq, " regwrite: %h", regwrite, " aluctrl: %b", aluctrl, " alusrc: %h",
   //            alusrc, " pcsrc: %h", pcsrc, " aluop: %b", aluop, " addrmode: %b", addrmode, "\n");
