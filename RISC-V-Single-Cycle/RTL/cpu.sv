@@ -5,18 +5,19 @@ module cpu #(
     output logic [WIDTH-1:0] a0_output
 );
 
-  wire [WIDTH-1:0] rf_dout1, rf_dout2, interm_immop, prog_addr, interm_ins, interm_aluout, interm_loadout, interm_wdrf, jump_addr;
+  wire [WIDTH-1:0] rf_dout1, rf_dout2, interm_immop, prog_addr, interm_ins, interm_aluout, interm_loadout, interm_wdrf, jump_addr, interm_rfpc;
   wire [WIDTH-1:0] result = interm_resultsrc ? interm_loadout : interm_aluout;
   wire [6:0] interm_opcode;
   wire [3:0] interm_aluctrl;
   wire [2:0] interm_funct3, interm_immsrc;
-  wire interm_funct7, interm_alusrc, interm_pcsrc, interm_eq, write_en, interm_memwrite, interm_resultsrc, interm_jbmux, interm_pcwritemux;
+  wire interm_funct7, interm_alusrc, interm_pcsrc, interm_eq, write_en, interm_memwrite, interm_resultsrc, interm_jbmux, interm_pcwritemux, interm_addupper;
   
   assign interm_opcode = interm_ins[6:0];
   assign interm_funct3 = interm_ins[14:12];
   assign interm_funct7 = interm_ins[30];
   assign interm_wdrf = interm_pcwritemux ? prog_addr + 4 : result;
   assign jump_addr = interm_jbmux ? result : interm_immop;
+  assign interm_rfpc = interm_addupper ? prog_addr : rf_dout1;
 
   controlunit ctrlunit (
       .opcode(interm_opcode),
@@ -31,8 +32,8 @@ module cpu #(
       .memwrite(interm_memwrite),  //out
       .resultsrc(interm_resultsrc),
       .jbmux(interm_jbmux),
-      .pcwritemux(interm_pcwritemux)
-
+      .pcwritemux(interm_pcwritemux),
+      .addupper(interm_addupper),
   );
 
   pcountunit programcounter (
@@ -58,7 +59,7 @@ module cpu #(
   alu alu (
       .alusrc(interm_alusrc),
       .aluctrl(interm_aluctrl),
-      .aluop1(rf_dout1),
+      .aluop1(interm_rfpc),
       .immop(interm_immop),
       .regop2(rf_dout2),
       .aluout(interm_aluout),

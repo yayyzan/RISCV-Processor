@@ -23,9 +23,8 @@ module rf #(
 
     assign a0 = rf_array[10];
 
-
     always_ff @(posedge clk) begin
-        // $display("x8: %h\t", rf_array[8], " a0:%h \t", a0 ," a1: %h\t", rf_array[11], " a2: %h\t", rf_array[12], "a3: %h\t", rf_array[13], "a4: %h\t", rf_array[14], "a5: %h\t", rf_array[15], "a6: %h\t", rf_array[16]);
+       // $display("x8: %h\t", rf_array[8], " a0:%h \t", a0 ," a1: %h\t", rf_array[11], " a2: %h\t", rf_array[12], "a3: %h\t", rf_array[13], "a4: %h\t", rf_array[14], "a5: %h\t", rf_array[15], "a6: %h\t", rf_array[16]);
         rf_array[9] <= {{31'b0}, trigger};
         if(we3) rf_array[ad3] <= wd3; 
     end
