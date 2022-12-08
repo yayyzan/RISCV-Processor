@@ -32,7 +32,8 @@ module controlunit (
     case (aluop)
       2'h0: aluctrl = 4'h0;  // load and store
       2'h1: aluctrl = {1'h0, !funct3[2], funct3[2], funct3[1]}; // branch
-      2'h2: aluctrl = {funct7 & ((opcode == 7'h13 & funct3 == 3'b101) | (opcode == 7'h33 & (funct3 == 3'b101 | funct3 == 3'b000))), funct3}; // reg or imm
+      2'h2: aluctrl = {funct7 & ((opcode == 7'h13 & funct3 == 3'h5) | (opcode == 7'h33 & (funct3 == 3'h5 | funct3 == 3'h0))), funct3}; // reg or imm
+      default: aluctrl = 4'hf;
     endcase
   end
     
