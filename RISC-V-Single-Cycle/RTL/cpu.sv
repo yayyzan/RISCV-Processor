@@ -9,7 +9,7 @@ module cpu #(
   wire [WIDTH-1:0] result = interm_resultsrc ? interm_loadout : interm_aluout;
   wire [6:0] interm_opcode;
   wire [3:0] interm_aluctrl;
-  wire [2:0] interm_funct3, interm_immsrc, interm_addrmode;
+  wire [2:0] interm_funct3, interm_immsrc;
   wire interm_funct7, interm_alusrc, interm_pcsrc, interm_eq, write_en, interm_memwrite, interm_resultsrc, interm_jbmux, interm_pcwritemux;
   
   assign interm_opcode = interm_ins[6:0];
@@ -29,7 +29,6 @@ module cpu #(
       .pcsrc(interm_pcsrc),  //out
       .immsrc(interm_immsrc),  //out
       .memwrite(interm_memwrite),  //out
-      .addrmode(interm_addrmode),  //out
       .resultsrc(interm_resultsrc),
       .jbmux(interm_jbmux),
       .pcwritemux(interm_pcwritemux)
@@ -55,7 +54,6 @@ module cpu #(
       .immsrc(interm_immsrc),
       .immop(interm_immop)
   );
-
 
   alu alu (
       .alusrc(interm_alusrc),
@@ -83,7 +81,7 @@ module cpu #(
   data_memory memory (
       .clk(clk),
       .write_enable(interm_memwrite),
-      .addrmode(interm_addrmode),
+      .addrmode(interm_funct3),
       .selectbytes(interm_aluout[1:0]),
       .write_data(rf_dout2),
       .address({interm_aluout[31:2], 2'b00}),

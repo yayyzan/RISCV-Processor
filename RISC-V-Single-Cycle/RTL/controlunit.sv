@@ -17,7 +17,6 @@ module controlunit (
     pcsrc = opcode >= 7'h67 | (opcode == 7'h63 & ((!eq & (funct3 == 3'h0 | funct3 == 3'h5 | funct3 == 3'h7)) | (eq & (funct3 == 3'h1 | funct3 == 3'h4 | funct3 == 3'h6)))); // pcsrc depends on eq implementation. funct3 must be integrated to distingush between each branch.
     jbmux = opcode == 7'h67; // selects which address pc should jump to
     pcwritemux = opcode >= 7'h67; // chooses between writing register with PC+4 or result from alu or load instruction
-    addrmode = funct3; 
     case (opcode) 
       7'h13:   immsrc = 3'h0;  // imm
       7'h03:   immsrc = 3'h0;  // load
