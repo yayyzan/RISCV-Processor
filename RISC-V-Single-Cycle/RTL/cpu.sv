@@ -1,39 +1,17 @@
 module cpu #(
     parameter WIDTH = 32
 ) (
-    input logic trigger,
-    input logic clk,
-    input logic rst,
+    input logic trigger, clk, rst,
     output logic [WIDTH-1:0] a0_output
 );
 
-  
-  wire [WIDTH-1:0] rf_dout1;
-  wire [WIDTH-1:0] rf_dout2;
-  wire [WIDTH-1:0] interm_immop;
-  wire [WIDTH-1:0] prog_addr;
-  wire [WIDTH-1:0] interm_ins;
-  wire [WIDTH-1:0] interm_aluout;
-  wire [6:0] interm_opcode;
-  wire [2:0] interm_funct3;
-  wire interm_funct7;
-  wire [3:0] interm_aluctrl;
-  wire [2:0] interm_immsrc;
-  wire interm_alusrc;
-  wire interm_pcsrc;
-  wire interm_eq;
-  wire write_en;
-  wire [2:0] interm_addrmode;
-  wire interm_memwrite;
-  wire interm_resultsrc;
-  wire [WIDTH-1:0] interm_loadout;
+  wire [WIDTH-1:0] rf_dout1, rf_dout2, interm_immop, prog_addr, interm_ins, interm_aluout, interm_loadout, interm_wdrf, jump_addr;
   wire [WIDTH-1:0] result = interm_resultsrc ? interm_loadout : interm_aluout;
-  wire interm_jbmux;
-  wire interm_pcwritemux;
-  wire [WIDTH-1:0] interm_wdrf;
-  wire [WIDTH-1:0] jump_addr;
-
-
+  wire [6:0] interm_opcode;
+  wire [3:0] interm_aluctrl;
+  wire [2:0] interm_funct3, interm_immsrc, interm_addrmode;
+  wire interm_funct7, interm_alusrc, interm_pcsrc, interm_eq, write_en, interm_memwrite, interm_resultsrc, interm_jbmux, interm_pcwritemux;
+  
   assign interm_opcode = interm_ins[6:0];
   assign interm_funct3 = (interm_opcode == 23 | interm_opcode == 55 | interm_opcode >= 100) ? 3'b000 : interm_ins[14:12];
   assign interm_funct7 = (interm_opcode == 51 | interm_opcode == 19) ? interm_ins[30] : 1'b0;
