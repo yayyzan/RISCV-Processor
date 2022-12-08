@@ -33,7 +33,7 @@ module cpu #(
       .resultsrc(interm_resultsrc),
       .jbmux(interm_jbmux),
       .pcwritemux(interm_pcwritemux),
-      .addupper(interm_addupper),
+      .addupper(interm_addupper)
   );
 
   pcountunit programcounter (
