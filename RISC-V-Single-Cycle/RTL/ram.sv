@@ -2,8 +2,7 @@ module ram #(
   parameter ADDRESS_WIDTH = 32, 
             DATA_WIDTH = 8                         //byte addressed design
 )(
-  input logic                      clk,            //clock
-  input logic                      write_enable,   //write enable
+  input logic                      clk, write_enable,    //clock and write enable
   input logic  [ADDRESS_WIDTH-1:0] address,        //address
   input logic  [             31:0] ramin,     //write data input
   output logic [             31:0] ramout       //data output

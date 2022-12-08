@@ -2,10 +2,7 @@
 module pcountunit #(
     parameter WIDTH = 32
 ) (
-    input logic pcsrc,
-    input logic clk,
-    input logic rst,
-    input logic jbmux,
+    input logic pcsrc, clk, rst, jbmux,
     input logic [WIDTH-1:0] jumpaddress,
     output logic [WIDTH-1:0] pc
 );

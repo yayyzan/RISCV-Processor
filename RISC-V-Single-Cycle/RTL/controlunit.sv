@@ -1,18 +1,10 @@
 module controlunit (
     input logic [6:0] opcode,
     input logic [2:0] funct3,
-    input logic funct7,
-    input logic eq,
-    output logic regwrite,
+    input logic funct7, eq,
+    output logic regwrite, alusrc, pcsrc, memwrite, resultsrc, pcwritemux, jbmux,
     output logic [3:0] aluctrl,
-    output logic alusrc,
-    output logic pcsrc,
-    output logic [2:0] immsrc,
-    output logic memwrite,
-    output logic [2:0] addrmode,
-    output logic resultsrc,
-    output logic pcwritemux,
-    output logic jbmux
+    output logic [2:0] immsrc, addrmode
 );
 
   wire [1:0] aluop = {(opcode == 7'h33 | opcode == 7'h13), (opcode == 7'h63 | opcode == 7'h13)};
