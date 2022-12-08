@@ -2,16 +2,10 @@ module rf #(
     parameter  A_WIDTH = 5,
                 D_WIDTH = 32
 ) (
-    input logic clk,
-    input logic we3,
-    input logic [A_WIDTH-1:0] ad1,
-    input logic [A_WIDTH-1:0] ad2,
-    input logic [A_WIDTH-1:0] ad3,
+    input logic clk, we3, trigger,
+    input logic [A_WIDTH-1:0] ad1, ad2, ad3,
     input logic [D_WIDTH-1:0] wd3,
-    output logic [D_WIDTH-1:0] a0,
-    output logic [D_WIDTH-1:0] rd1,
-    output logic [D_WIDTH-1:0] rd2,
-    input logic trigger
+    output logic [D_WIDTH-1:0] a0, rd1, rd2
 );
 
     logic [D_WIDTH-1:0] rf_array [2**A_WIDTH-1:0];
@@ -29,9 +23,8 @@ module rf #(
 
     assign a0 = rf_array[10];
 
-
     always_ff @(posedge clk) begin
-        // $display("x8: %h\t", rf_array[8], " a0:%h \t", a0 ," a1: %h\t", rf_array[11], " a2: %h\t", rf_array[12], "a3: %h\t", rf_array[13], "a4: %h\t", rf_array[14], "a5: %h\t", rf_array[15], "a6: %h\t", rf_array[16]);
+       // $display("x8: %h\t", rf_array[8], " a0:%h \t", a0 ," a1: %h\t", rf_array[11], " a2: %h\t", rf_array[12], "a3: %h\t", rf_array[13], "a4: %h\t", rf_array[14], "a5: %h\t", rf_array[15], "a6: %h\t", rf_array[16]);
         rf_array[9] <= {{31'b0}, trigger};
         if(we3) rf_array[ad3] <= wd3; 
     end

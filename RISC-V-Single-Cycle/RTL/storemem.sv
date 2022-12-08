@@ -3,8 +3,7 @@ module storemem #(
 )(
     input  logic [           2:0] addrmode,
     input  logic [           1:0] selectbytes,
-    input  logic [DATA_WIDTH-1:0] ramout,      //output of ram
-    input  logic [DATA_WIDTH-1:0] write_data,   //write data from register
+    input  logic [DATA_WIDTH-1:0] ramout, write_data,     //output of ram and write data from register
     output logic [DATA_WIDTH-1:0] ramdin        //input of ram
 );
 
