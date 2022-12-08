@@ -24,6 +24,7 @@ module alu #(
       4'b1101: aluout = $signed(aluop1) >>> aluop2[4:0];  // shift right arr
       4'b0110: aluout = aluop1 | aluop2;
       4'b0111: aluout = aluop1 & aluop2;
+      4'b1111: aluout = aluop2;
       default: aluout = 0;
     endcase
   end
