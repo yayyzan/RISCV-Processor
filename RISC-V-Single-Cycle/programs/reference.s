@@ -56,6 +56,11 @@ addi a4, zero, 99
 passed6:
 addi a3, zero, 16               #a3 set to 0x10 to show successful branch test
 
+#......END: CONSTANTLY JUMP TO END T0 CONCLUDE TEST......
+
+end:
+j end           #by ending the program, we refrain from ever setting a4 to 0x63
+
 #......IJUMP (INCORRECT JUMP) SETS A4 TO 0x63 WHICH SHOWS SOMETHING WRONG HAS OCCURED......
 
 ijump:

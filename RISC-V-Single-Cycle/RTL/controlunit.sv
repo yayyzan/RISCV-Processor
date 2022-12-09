@@ -24,8 +24,8 @@ module controlunit (
       7'h23:   immsrc = 3'h2;  // store
       7'h63:   immsrc = 3'h3;  // branch
       7'h33:   immsrc = 3'h7;  // reg
-      7'h37:   immsrc = 3'h1; 
-      7'h17:   immsrc = 3'h1;
+      7'h37:   immsrc = 3'h1;  // upp imm (load)
+      7'h17:   immsrc = 3'h1;  // upp imm (add)
       default: immsrc = 3'h4;  // jump
     endcase
   end
