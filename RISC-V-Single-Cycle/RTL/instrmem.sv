@@ -10,7 +10,7 @@ module instrmem #(
 
   initial begin
     $display("Loading rom.");
-    $readmemh("./programs/f1.hex", rom_array);
+    $readmemh("./programs/counter.hex", rom_array);
     $display("Program written to ROM successfully");
   end
 

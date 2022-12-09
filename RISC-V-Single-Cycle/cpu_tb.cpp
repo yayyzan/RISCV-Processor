@@ -41,6 +41,7 @@ int main(int argc, char **argv, char **env) {
     vbdCycle(simcyc);
     vbdBar(cpu->a0_output);
     cpu->trigger = vbdFlag() || vbdGetkey() == 't';
+    // std::cout << cpu->a0_output << std::endl;
     // std::stringstream stream;
     // stream << std::hex << cpu->a0_output;
     // std::string result(stream.str());
