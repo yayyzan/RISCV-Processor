@@ -4,7 +4,8 @@ module pcountunit #(
 ) (
     input logic pcsrc, clk, rst, jbmux,
     input logic [WIDTH-1:0] jumpaddress,
-    output logic [WIDTH-1:0] pc
+    output logic [WIDTH-1:0] pc,
+    output logic [WIDTH-1:0] pc_plus4  // newly added output for register
 );
 
   logic [WIDTH-1:0] next_pc;
@@ -20,8 +21,14 @@ module pcountunit #(
   end
 
   always_ff @(posedge clk) begin
-    if (rst) pc <= 32'hBFC00000;
-    else pc <= next_pc;
+    if (rst) begin 
+      pc <= 32'hBFC00000;
+      pc_plus4 <=  32'hBFC00000;
+    end 
+    else begin
+       pc <= next_pc;
+       pc_plus4 <= next_pc+4;
+    end
   end
 
 

@@ -2,7 +2,8 @@ module cpu #(
     parameter WIDTH = 32
 ) (
     input logic trigger, clk, rst,
-    output logic [WIDTH-1:0] a0_output
+    output logic [WIDTH-1:0] a0_output,
+    output logic [WIDTH-1:0] pc_plus4
 );
 
   wire [WIDTH-1:0] rf_dout1, rf_dout2, interm_immop, prog_addr, interm_ins, interm_aluout, interm_loadout, interm_wdrf, jump_addr, interm_rfpc;
@@ -35,19 +36,15 @@ module cpu #(
       .pcwritemux(interm_pcwritemux),
       .addupper(interm_addupper)
   );
-
-  pcountunit programcounter (
-      .clk(clk),  //in
-      .rst(rst),  //in
-      .pcsrc(interm_pcsrc),  //in
-      .jumpaddress(jump_addr),  //in
-      .pc(prog_addr),  //out
-      .jbmux(interm_jbmux)
-  );
-
-  instrmem programmem (
-      .address(prog_addr),
-      .dout(interm_ins)
+  fetch fetch (
+      .clk(clk),
+      .rst(rst),
+      .pcsrc(interm_pcsrc),
+      .jumpaddress(jump_addr),
+      .jbmux(interm_jbmux),
+      .dout(interm_ins),  //out
+      .pc(prog_addr),     //out
+      .pc_plus4(pc_plus4) //out
   );
 
   signextender sgnextend (
