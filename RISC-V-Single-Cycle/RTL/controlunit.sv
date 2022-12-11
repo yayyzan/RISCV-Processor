@@ -1,8 +1,8 @@
 module controlunit (
     input logic [6:0] opcode,
     input logic [2:0] funct3,
-    input logic funct7, eq, 
-    output logic regwrite, alusrc, pcsrc, memwrite, resultsrc, pcwritemux, jbmux, addupper,
+    input logic funct7, 
+    output logic regwrite, alusrc, memwrite, resultsrc, pcwritemux, jbmux, addupper,
     output logic [3:0] aluctrl,
     output logic [2:0] immsrc
 );
@@ -14,7 +14,6 @@ module controlunit (
     alusrc = opcode == 7'h03 | opcode == 7'h13 | opcode == 7'h23 | opcode == 7'h67 | opcode == 7'h17 | opcode == 7'h37; 
     memwrite = opcode == 7'h23;  
     resultsrc = opcode == 7'h03; 
-    pcsrc = opcode >= 7'h67 | (opcode == 7'h63 & ((!eq & (funct3 == 3'h0 | funct3 == 3'h5 | funct3 == 3'h7)) | (eq & (funct3 == 3'h1 | funct3 == 3'h4 | funct3 == 3'h6)))); // pcsrc depends on eq implementation. funct3 must be integrated to distingush between each branch.
     jbmux = opcode == 7'h67; // selects which address pc should jump to
     pcwritemux = opcode >= 7'h67; // chooses between writing register with PC+4 or result from alu or load instruction
     addupper = opcode == 7'h17;
