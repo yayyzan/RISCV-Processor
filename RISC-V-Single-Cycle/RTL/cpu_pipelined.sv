@@ -18,7 +18,7 @@ module cpu_pipelined #(
   );
   
   logic [WIDTH-1:0] pcD;
-  logic [WIDTH-1:0] instrF;
+  logic [WIDTH-1:0] instrD;
   logic [WIDTH-1:0] pcplus4D;
 
   always_ff @(posedge clk) begin
@@ -73,7 +73,7 @@ module cpu_pipelined #(
     .addupper(addupperD)
   );
 
-  logic regwriteE,,addupperE,alusrcE,memwriteE,resultsrcE,jbmuxE,pcwritemuxE;
+  logic regwriteE,addupperE,alusrcE,memwriteE,resultsrcE,jbmuxE,pcwritemuxE;
   logic [WIDTH-1:0] a0_outputE,rf_dout1E,rf_dout2E,immextE,pcE,pcplus4E;
   logic [6:0] opcodeE;
   logic [4:0] rdE;  
@@ -121,7 +121,7 @@ module cpu_pipelined #(
     end
   end
 
-  logic [WIDTH-1:0] pctargetE,aluoutE;
+  logic [WIDTH-1:0] pctargetE,aluresultE;
   logic pcsrcE;
 
   execute execute (
@@ -137,17 +137,17 @@ module cpu_pipelined #(
     .prog_addr(pcE),
     .addupper(addupperE),
     .jumpaddress(pctargetE), //*to keep consistant, change jumpaddress to pctarget in fetch will be better
-    .aluout(aluoutE),
+    .aluout(aluresultE),
     .pcsrc(pcsrcE)
   );
 
   logic regwriteM,resultsrcM,memwriteM,pcwritemuxM;
-  logic [WIDTH-1:0] aluoutM,write_dataM,pcplus4M,a0_outputM;
+  logic [WIDTH-1:0] aluresultM,write_dataM,pcplus4M,a0_outputM;
   logic [4:0] rdM;
   logic [2:0] funct3M;
 
   always_ff @(posedge clk) begin
-    aluoutM <= aluoutE;
+    aluresultM <= aluresultE;
     write_dataM <= rf_dout2E;
     rdM <= rdE;
     regwriteM <= regwriteE;
@@ -165,25 +165,41 @@ module cpu_pipelined #(
     .clk(clk),
     .write_enable(memwriteM),
     .addrmode(funct3M),
-    .selectbytes(aluoutM[1:0]),       //use 2 spare bits from address to select bytes in load and store instrucions
+    .selectbytes(aluresultM[1:0]),       //use 2 spare bits from address to select bytes in load and store instrucions
     .write_data(write_dataM),
-    .address({aluoutM[31:2], 2'b00}), //the last 2 bit will always be zero
+    .address({aluresultM[31:2], 2'b00}), //the last 2 bit will always be zero
     .read_data(read_dataM)
   );
 
   logic regwriteW,resultsrcW,pcwritemuxW;
-  logic [WIDTH-1:0] read_dataW,aluoutW,pcplus4W;
+  logic [WIDTH-1:0] read_dataW,aluresultW,pcplus4W;
   logic [4:0] rdW;
 
   always_ff @(posedge clk) begin
     read_dataW <= read_dataM;
     regwriteW <= regwriteM;
     resultsrcW <= resultsrcM;
-    aluoutW <= aluoutM;
+    aluresultW <= aluresultM;
     rdW <= rdM;
     pcplus4W <= pcplus4M;
     pcwritemuxW <= pcwritemuxM;
     a0_outputW <= a0_outputM;
+  end
+
+  logic [WIDTH-1:0] resultW;
+
+  always_comb begin
+    case ({
+      pcwritemuxW, resultsrcW         
+    })
+      2'b01:   resultW = read_dataW;
+      2'b10:   resultW = pcplus4W;
+      default: resultW = aluresultW;
+    endcase
+  end
+
+  always_ff @(posedge clk) begin
+    $display("ins: %h", instrF, " progaddr: %h", pcF, "\n");
   end
 
 endmodule
