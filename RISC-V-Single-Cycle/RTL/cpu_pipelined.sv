@@ -190,7 +190,7 @@ module cpu_pipelined #(
 
   always_comb begin
     case ({
-      pcwritemuxW, resultsrcW         
+      pcwritemuxW, resultsrcW  //if resultsrcW is one resultW = read_dataW; if pcwritemuxW is one resultW = pcplus4W;
     })
       2'b01:   resultW = read_dataW;
       2'b10:   resultW = pcplus4W;
