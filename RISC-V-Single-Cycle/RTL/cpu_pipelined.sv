@@ -1,20 +1,20 @@
 module cpu_pipelined #(
-    parameter WIDTH = 32
+  parameter WIDTH = 32
 ) (
-    input logic trigger,clk,rst,
-    output logic [WIDTH-1:0] a0_outputW
+  input logic trigger,clk,rst,
+  output logic [WIDTH-1:0] a0_outputW
 );
 
   logic [WIDTH-1:0] pcF;
   logic [WIDTH-1:0] instrF;
 
   fetch fetch (
-      .clk(clk),
-      .rst(rst),
-      .pcsrc(pcsrcE),
-      .jumpaddress(pctargetE),    //*to keep consistant, change jumpaddress to pctarget in fetch will be better
-      .pc(pcF),
-      .instruction(instrF)
+    .clk(clk),
+    .rst(rst),
+    .pcsrc(pcsrcE),
+    .jumpaddress(pctargetE),    //*to keep consistant, change jumpaddress to pctarget in fetch will be better
+    .pc(pcF),
+    .instruction(instrF)
   );
   
   logic [WIDTH-1:0] pcD;
@@ -34,8 +34,8 @@ module cpu_pipelined #(
     end
   end
 
-  logic funct7D,alusrcD,memwriteD,resultsrcD,jbmuxD,pcwritemuxD,regwriteD,addupperD
-  logic [WIDTH-1:0] a0_outputD,rf_dout1D,rf_dout2D,immextD
+  logic funct7D,alusrcD,memwriteD,resultsrcD,jbmuxD,pcwritemuxD,regwriteD,addupperD;
+  logic [WIDTH-1:0] a0_outputD,rf_dout1D,rf_dout2D,immextD;
   logic [6:0] opcodeD;
   logic [4:0] rdD;
   logic [3:0] aluctrlD; 
@@ -73,8 +73,8 @@ module cpu_pipelined #(
     .addupper(addupperD)
   );
 
-  logic regwriteE,,addupperE,alusrcE,memwriteE,resultsrcE,jbmuxE,pcwritemuxE
-  logic [WIDTH-1:0] a0_outputE,rf_dout1E,rf_dout2E,immextE,pcE,pcplus4E
+  logic regwriteE,,addupperE,alusrcE,memwriteE,resultsrcE,jbmuxE,pcwritemuxE;
+  logic [WIDTH-1:0] a0_outputE,rf_dout1E,rf_dout2E,immextE,pcE,pcplus4E;
   logic [6:0] opcodeE;
   logic [4:0] rdE;  
   logic [3:0] aluctrlE;
@@ -116,9 +116,47 @@ module cpu_pipelined #(
       regwriteE <= 0;
       addupperE <= 0;
       pcE <= 0;
-      pcD <= 0;
+      pcplus4E <= 0;
       rdE <= 0;
     end
+  end
+
+  logic [WIDTH-1:0] pctargetE,aluoutE;
+  logic pcsrcE;
+
+  execute execute (
+    .clk(clk),
+    .alusrc(alusrcE),
+    .aluctrl(aluctrlE),
+    .rf_dout1(rf_dout1E),
+    .immop(immextE),      //*to keep consistant, change immop to immext in execute will be better
+    .regop2(rf_dout2E),
+    .opcode(opcodeE),
+    .funct3(funct3E),
+    .jbmux(jbmuxE),
+    .prog_addr(pcE),
+    .addupper(addupperE),
+    .jumpaddress(pctargetE), //*to keep consistant, change jumpaddress to pctarget in fetch will be better
+    .aluout(aluoutE),
+    .pcsrc(pcsrcE)
+  );
+
+  logic regwriteM,resultsrcM,memwriteM,pcwritemuxM;
+  logic [WIDTH-1:0] aluoutM,write_dataM,pcplus4M,a0_outputM;
+  logic [4:0] rdM;
+  logic [2:0] funct3M;
+
+  always_ff @(posedge clk) begin
+    aluoutM <= aluoutE;
+    write_dataM <= rf_dout2E;
+    rdM <= rdE;
+    regwriteM <= regwriteE;
+    resultsrcM <= resultsrcE;
+    memwriteM <= memwriteE;
+    pcplus4M <= pcplus4E;
+    funct3M <= funct3E;
+    pcwritemuxM <= pcwritemuxE;
+    a0_outputM <= a0_outputE;
   end
 
 endmodule
