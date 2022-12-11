@@ -2,7 +2,7 @@ module decode(
     input logic [31:0] wd3D, pcF, pcplusfourF, a0D, instrD,
     input logic we3D, clk, triggerD,
     input logic [4:0] ad3D,
-    output logic regwriteD, resultsrcD, memwriteD, alusrcD, addupperD,
+    output logic regwriteD, resultsrcD, memwriteD, alusrcD, addupperD, jbmuxD, pcwritemuxD,
     output logic [3:0] aluctrlD,
     output logic [31:0] pcD, pcplusfourD, immopD, rd1D, rd2D,
     output logic [4:0] rdD
@@ -26,6 +26,8 @@ controlunit ctrlunitD(
     .funct7(funct7D),
     .regwrite(regwriteD),
     .alusrc(alusrcD),
+    .pcwritemux(pcwritemuxD),
+    .jbmux(jbmuxD),
     .memwrite(memwriteD),
     .resultsrc(resultsrcD),
     .addupper(addupperD),
