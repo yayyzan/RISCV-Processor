@@ -53,11 +53,11 @@ module cpu_pipelined #(
     .funct7(funct7D),
     .reg_addr_1(instrD[19:15]),
     .reg_addr_2(instrD[24:20]),
-    .reg_addr_3(rdW),
+    .reg_addr_3(rdW),            //from write part
     .imm_of_instr(instrD[31:7]),
-    .wd3(resultW),
+    .wd3(resultW),               //from write part
     .trigger(trigger),
-    .regwrite(regwriteW),  //input for enable
+    .regwrite(regwriteW),  //input for enable from write part
     .alusrc(alusrcD),
     .aluctrl(aluctrlD),
     .memwrite(memwriteD),
@@ -157,6 +157,33 @@ module cpu_pipelined #(
     funct3M <= funct3E;
     pcwritemuxM <= pcwritemuxE;
     a0_outputM <= a0_outputE;
+  end
+
+  logic [WIDTH-1:0] read_dataM;
+
+  data_memory memory (
+    .clk(clk),
+    .write_enable(memwriteM),
+    .addrmode(funct3M),
+    .selectbytes(aluoutM[1:0]),       //use 2 spare bits from address to select bytes in load and store instrucions
+    .write_data(write_dataM),
+    .address({aluoutM[31:2], 2'b00}), //the last 2 bit will always be zero
+    .read_data(read_dataM)
+  );
+
+  logic regwriteW,resultsrcW,pcwritemuxW;
+  logic [WIDTH-1:0] read_dataW,aluoutW,pcplus4W;
+  logic [4:0] rdW;
+
+  always_ff @(posedge clk) begin
+    read_dataW <= read_dataM;
+    regwriteW <= regwriteM;
+    resultsrcW <= resultsrcM;
+    aluoutW <= aluoutM;
+    rdW <= rdM;
+    pcplus4W <= pcplus4M;
+    pcwritemuxW <= pcwritemuxM;
+    a0_outputW <= a0_outputM;
   end
 
 endmodule
