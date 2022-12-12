@@ -45,7 +45,7 @@ j lfsr_loop
 
 #the counter loop that counts one second (the subroutine using JAL)
 counter:
-li t2, 15 # count 15 cycles for 1 second delay
+li t2, 2 # count 15 cycles for 1 second delay
 nop
 nop
 counter_loop:
