@@ -106,7 +106,7 @@ module cpu_pipelined #(
       resultsrcE <= 0;
       jbmuxE <= 0;
       pcwritemuxE <= 0;
-      a0E <= 0;
+      a0E <= a0D;
       rd1E <= 0;
       rd2E <= 0;
       immextE <= 0;
