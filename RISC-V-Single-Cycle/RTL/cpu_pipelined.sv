@@ -2,7 +2,7 @@ module cpu_pipelined #(
   parameter WIDTH = 32
 ) (
   input logic trigger,clk,rst,
-  output logic [WIDTH-1:0] a0_outputW
+  output logic [WIDTH-1:0] a0W
 );
 
   logic [WIDTH-1:0] pcF;
@@ -54,8 +54,6 @@ module cpu_pipelined #(
     .we3D(regwriteW),           //from write part 
     .ad3D(rdW),                 //from write part 
     .wd3D(resultW),             //from write part 
-    .pcF(pcF),
-    .pcplusfourF(pcplusfourF),
     .a0D(a0D),
     .instrD(instrD),            //input ends here
     .regwriteD(regwriteD),
@@ -66,8 +64,6 @@ module cpu_pipelined #(
     .jbmuxD(jbmuxD),
     .pcwritemuxD(pcwritemuxD),
     .aluctrlD(aluctrlD),
-    .pcD(pcD),
-    .pcplusfourD(pcplusfourD),
     .immopD(immextD),
     .rd1D(rd1D),
     .rd2D(rd2D),
@@ -143,21 +139,21 @@ module cpu_pipelined #(
   );
 
   logic regwriteM,resultsrcM,memwriteM,pcwritemuxM;
-  logic [WIDTH-1:0] aluresultM,write_dataM,pcplus4M,a0_outputM;
+  logic [WIDTH-1:0] aluresultM,write_dataM,pcplusfourM,a0M;
   logic [4:0] rdM;
   logic [2:0] funct3M;
 
   always_ff @(posedge clk) begin
     aluresultM <= aluresultE;
-    write_dataM <= rf_dout2E;
+    write_dataM <= rd2E;
     rdM <= rdE;
     regwriteM <= regwriteE;
     resultsrcM <= resultsrcE;
     memwriteM <= memwriteE;
-    pcplus4M <= pcplus4E;
+    pcplusfourM <= pcplusfourE;
     funct3M <= funct3E;
     pcwritemuxM <= pcwritemuxE;
-    a0_outputM <= a0_outputE;
+    a0M <= a0E;
   end
 
   logic [WIDTH-1:0] read_dataM;
@@ -173,7 +169,7 @@ module cpu_pipelined #(
   );
 
   logic regwriteW,resultsrcW,pcwritemuxW;
-  logic [WIDTH-1:0] read_dataW,aluresultW,pcplus4W;
+  logic [WIDTH-1:0] read_dataW,aluresultW,pcplusfourW;
   logic [4:0] rdW;
 
   always_ff @(posedge clk) begin
@@ -182,9 +178,9 @@ module cpu_pipelined #(
     resultsrcW <= resultsrcM;
     aluresultW <= aluresultM;
     rdW <= rdM;
-    pcplus4W <= pcplus4M;
+    pcplusfourW <= pcplusfourM;
     pcwritemuxW <= pcwritemuxM;
-    a0_outputW <= a0_outputM;
+    a0W <= a0M;
   end
 
   logic [WIDTH-1:0] resultW;
@@ -194,7 +190,7 @@ module cpu_pipelined #(
       pcwritemuxW, resultsrcW  //if resultsrcW is one resultW = read_dataW; if pcwritemuxW is one resultW = pcplus4W;
     })
       2'b01:   resultW = read_dataW;
-      2'b10:   resultW = pcplus4W;
+      2'b10:   resultW = pcplusfourW;
       default: resultW = aluresultW;
     endcase
   end
