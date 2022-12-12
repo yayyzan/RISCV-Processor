@@ -17,8 +17,6 @@ module decode(
     wire [4:0]ad2D = instrD[24:20];
 
     assign rdD = instrD[11:7];
-    assign pcD = pcF;
-    assign pcplusfourD = pcplusfourF;
 
 controlunit ctrlunitD(
     .opcode(opcodeD),
