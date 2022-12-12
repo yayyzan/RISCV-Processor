@@ -1,8 +1,8 @@
 module fetch #(
-  parameter A_WIDTH = 32,
-)(
+  parameter A_WIDTH = 32
+) (
     input logic pcsrc, clk, rst, 
-    input logic [A_WIDTH-1:0] jumpaddress,      //
+    input logic [A_WIDTH-1:0] jumpaddress,      
     output [A_WIDTH-1:0] dout,                  //instruction mem out
     output [A_WIDTH-1:0] pc,
     output [A_WIDTH-1:0] pc_plus4
