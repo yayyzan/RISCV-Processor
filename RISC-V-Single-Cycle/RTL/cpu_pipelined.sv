@@ -7,14 +7,17 @@ module cpu_pipelined #(
 
   logic [WIDTH-1:0] pcF;
   logic [WIDTH-1:0] instrF;
+  logic [WIDTH-1:0] pc_plus4F;
+
 
   fetch fetch (
     .clk(clk),
     .rst(rst),
     .pcsrc(pcsrcE),
-    .jumpaddress(pctargetE),    //*to keep consistant, change jumpaddress to pctarget in fetch will be better
+    .jumpaddress(pctargetE),
     .pc(pcF),
-    .instruction(instrF)
+    .dout(instrF),
+    .pc_plus4(pc_plus4F)
   );
   
   logic [WIDTH-1:0] pcD;
@@ -22,10 +25,10 @@ module cpu_pipelined #(
   logic [WIDTH-1:0] pcplus4D;
 
   always_ff @(posedge clk) begin
-    if (!pcsrcE) begin           //if doing jump or branch, skip the following instruction by resetting fetch part
+    if (!pcsrcE) begin           //if doing jump or branch, skip the following dout by resetting fetch part
       instrD <= instrF;
       pcD <= pcF;
-      pcplus4D <= pcF + 4;
+      pcplus4D <= pc_plus4F;
     end
     else begin
       instrD <= 0;
