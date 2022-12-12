@@ -1,10 +1,10 @@
 module decode(
-    input logic [31:0] wd3D, pcF, pcplusfourF, instrD,
+    input logic [31:0] wd3D, instrD,
     input logic we3D, clk, triggerD,
     input logic [4:0] ad3D,
     output logic regwriteD, resultsrcD, memwriteD, alusrcD, addupperD, jbmuxD, pcwritemuxD,
     output logic [3:0] aluctrlD,
-    output logic [31:0] pcD, pcplusfourD, immopD, rd1D, rd2D, a0D,
+    output logic [31:0] immopD, rd1D, rd2D, a0D,
     output logic [4:0] rdD
 );
 
