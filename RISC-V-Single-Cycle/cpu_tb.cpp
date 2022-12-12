@@ -1,6 +1,6 @@
 #include "verilated.h"
 #include "verilated_vcd_c.h"
-#include "Vcpu.h"
+#include "Vcpu_pipelined.h"
 #include <iostream>
 #include <iomanip>
 
@@ -14,17 +14,17 @@ int main(int argc, char **argv, char **env) {
 
   Verilated::commandArgs(argc, argv);
   
-  // init cpu verilog instance
-  Vcpu * cpu = new Vcpu;
+  // init cpu_pipelined verilog instance
+  Vcpu_pipelined * cpu_pipelined = new Vcpu_pipelined;
   
   // init trace dump
   Verilated::traceEverOn(true);
   VerilatedVcdC* tfp = new VerilatedVcdC;
-  cpu->trace (tfp, 99);
-  tfp->open ("cpu.vcd");
+  cpu_pipelined->trace (tfp, 99);
+  tfp->open ("cpu_pipelined.vcd");
 
-  cpu->clk = 0;
-  cpu->rst = 0;
+  cpu_pipelined->clk = 0;
+  cpu_pipelined->rst = 0;
 
   if (vbdOpen()!=1) return(-1);
   vbdHeader("L3T2:Delay");
@@ -35,15 +35,15 @@ int main(int argc, char **argv, char **env) {
 
     for (tick = 0; tick < 2; tick++) {
       tfp->dump (2*simcyc+tick);
-      cpu->clk = !cpu->clk;
-      cpu->eval ();
+      cpu_pipelined->clk = !cpu_pipelined->clk;
+      cpu_pipelined->eval ();
     }
     vbdCycle(simcyc);
-    vbdBar(cpu->a0_output);
-    cpu->trigger = vbdFlag() || vbdGetkey() == 't';
-    // std::cout << cpu->a0_output << std::endl;
+    vbdBar(cpu_pipelined->a0W);
+    cpu_pipelined->trigger = vbdFlag() || vbdGetkey() == 't';
+    // std::cout << cpu_pipelined->a0_output << std::endl;
     // std::stringstream stream;
-    // stream << std::hex << cpu->a0_output;
+    // stream << std::hex << cpu_pipelined->a0_output;
     // std::string result(stream.str());
 
     // std::cout << "a0out:  " << result << std::endl;
