@@ -29,8 +29,7 @@ module execute #(
       .immop(immop),
       .regop2(regop2),
       .aluout(aluout),
-      .eq(eq),
-      .clk(clk)
+      .eq(eq)
   );
 
   always_comb begin

@@ -37,9 +37,5 @@ module alu #(
     endcase
   end
 
-  // always_ff @(posedge clk) begin
-  //   $display("aluout[0]: %h", aluout[0],, " eq: %h", eq);
-  // end
-
 endmodule
 
