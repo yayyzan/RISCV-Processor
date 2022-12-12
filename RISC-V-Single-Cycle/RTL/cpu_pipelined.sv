@@ -7,7 +7,7 @@ module cpu_pipelined #(
 
   logic [WIDTH-1:0] pcF;
   logic [WIDTH-1:0] instrF;
-  logic [WIDTH-1:0] pc_plus4F;
+  logic [WIDTH-1:0] pcplusfourF;
 
 
   fetch fetch (
@@ -17,28 +17,28 @@ module cpu_pipelined #(
     .jumpaddress(pctargetE),
     .pc(pcF),
     .dout(instrF),
-    .pc_plus4(pc_plus4F)
+    .pc_plus4(pcplusfourF)
   );
   
   logic [WIDTH-1:0] pcD;
   logic [WIDTH-1:0] instrD;
-  logic [WIDTH-1:0] pcplus4D;
+  logic [WIDTH-1:0] pcplusfourD;
 
   always_ff @(posedge clk) begin
     if (!pcsrcE) begin           //if doing jump or branch, skip the following dout by resetting fetch part
       instrD <= instrF;
       pcD <= pcF;
-      pcplus4D <= pc_plus4F;
+      pcplusfourD <= pcplusfourF;
     end
     else begin
       instrD <= 0;
       pcD <= 0;
-      pcplus4D <= 0;
+      pcplusfourD <= 0;
     end
   end
 
-  logic funct7D,alusrcD,memwriteD,resultsrcD,jbmuxD,pcwritemuxD,regwriteD,addupperD;
-  logic [WIDTH-1:0] a0_outputD,rf_dout1D,rf_dout2D,immextD;
+  logic regwriteD,resultsrcD,memwriteD,alusrcD,addupperD,jbmuxD,pcwritemuxD;
+  logic [WIDTH-1:0] a0D,rd1D,rd2D,immextD;
   logic [6:0] opcodeD;
   logic [4:0] rdD;
   logic [3:0] aluctrlD; 
@@ -46,38 +46,36 @@ module cpu_pipelined #(
 
   assign opcodeD = instrD[6:0];
   assign funct3D = instrD[14:12];
-  assign funct7D = instrD[30];
   assign rdD = instrD[11:7];
 
   decode decode (
     .clk(clk),
-    .opcode(opcodeD),
-    .funct3(funct3D),
-    .funct7(funct7D),
-    .reg_addr_1(instrD[19:15]),
-    .reg_addr_2(instrD[24:20]),
-    .reg_addr_3(rdW),            //from write part
-    .imm_of_instr(instrD[31:7]),
-    .wd3(resultW),               //from write part
-    .trigger(trigger),
-    .regwrite(regwriteW),  //input for enable from write part
-    .alusrc(alusrcD),
-    .aluctrl(aluctrlD),
-    .memwrite(memwriteD),
-    .resultsrc(resultsrcD),
-    .jbmux(jbmuxD),
-    .pcwritemux(pcwritemuxD),
-    .a0_output(a0_outputD),
-    .rd1(rf_dout1D),
-    .rd2(rf_dout2D),
-    .immop(immextD),       //*to keep consistant, change immop to immext in decode will be better
-    .pc(pcF), 
-    .write_en(regwriteD),  //output from control, needs to propogate through pipeline
-    .addupper(addupperD)
+    .triggerD(trigger),
+    .we3D(regwriteW),           //from write part 
+    .ad3D(rdW),                 //from write part 
+    .wd3D(resultW),             //from write part 
+    .pcF(pcF),
+    .pcplusfourF(pcplusfourF),
+    .a0D(a0D),
+    .instrD(instrD),            //input ends here
+    .regwriteD(regwriteD),
+    .resultsrcD(resultsrcD),
+    .memwriteD(memwriteD),
+    .alusrcD(alusrcD),
+    .addupperD(addupperD),
+    .jbmuxD(jbmuxD),
+    .pcwritemuxD(pcwritemuxD),
+    .aluctrlD(aluctrlD),
+    .pcD(pcD),
+    .pcplusfourD(pcplusfourD),
+    .immopD(immextD),
+    .rd1D(rd1D),
+    .rd2D(rd2D),
+    .rdD(rdD)
   );
 
   logic regwriteE,addupperE,alusrcE,memwriteE,resultsrcE,jbmuxE,pcwritemuxE;
-  logic [WIDTH-1:0] a0_outputE,rf_dout1E,rf_dout2E,immextE,pcE,pcplus4E;
+  logic [WIDTH-1:0] a0E,rd1E,rd2E,immextE,pcE,pcplusfourE;
   logic [6:0] opcodeE;
   logic [4:0] rdE;  
   logic [3:0] aluctrlE;
@@ -93,14 +91,14 @@ module cpu_pipelined #(
       resultsrcE <= resultsrcD;
       jbmuxE <= jbmuxD;
       pcwritemuxE <= pcwritemuxD;
-      a0_outputE <= a0_outputD;
-      rf_dout1E <= rf_dout1D;
-      rf_dout2E <= rf_dout2D;
+      a0E <= a0D;
+      rd1E <= rd1D;
+      rd2E <= rd2D;
       immextE <= immextD;
       regwriteE <= regwriteD;
       addupperE <= addupperD;
       pcE <= pcD;
-      pcplus4E <= pcplus4D;
+      pcplusfourE <= pcplusfourD;
       rdE <= rdD;
     end
     else begin
@@ -112,14 +110,14 @@ module cpu_pipelined #(
       resultsrcE <= 0;
       jbmuxE <= 0;
       pcwritemuxE <= 0;
-      a0_outputE <= a0_outputD;
-      rf_dout1E <= 0;
-      rf_dout2E <= 0;
+      a0E <= 0;
+      rd1E <= 0;
+      rd2E <= 0;
       immextE <= 0;
       regwriteE <= 0;
       addupperE <= 0;
       pcE <= 0;
-      pcplus4E <= 0;
+      pcplusfourE <= 0;
       rdE <= 0;
     end
   end
@@ -131,9 +129,9 @@ module cpu_pipelined #(
     .clk(clk),
     .alusrc(alusrcE),
     .aluctrl(aluctrlE),
-    .rf_dout1(rf_dout1E),
+    .rf_dout1(rd1E),
     .immop(immextE),      //*to keep consistant, change immop to immext in execute will be better
-    .regop2(rf_dout2E),
+    .regop2(rd2E),
     .opcode(opcodeE),
     .funct3(funct3E),
     .jbmux(jbmuxE),
