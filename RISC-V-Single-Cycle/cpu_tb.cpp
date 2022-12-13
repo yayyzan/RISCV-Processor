@@ -30,7 +30,7 @@ int main(int argc, char **argv, char **env) {
   vbdHeader("whole test");
   vbdSetMode(1);  // set one shot mode for whole test
 
-
+  
   for (simcyc = 0; simcyc < MAX_SIM_CYC; simcyc++) {
 
     for (tick = 0; tick < 2; tick++) {
@@ -38,10 +38,12 @@ int main(int argc, char **argv, char **env) {
       cpu->clk = !cpu->clk;
       cpu->eval ();
     }
-    if(simcyc >900000) vbdPlot(cpu->a0_output, 0, 255);
-    vbdCycle(simcyc);
-    // vbdBar(cpu->a0W);
-    cpu->trigger = vbdFlag() || vbdGetkey() == 't';
+
+    // if(simcyc > 900000) vbdPlot(cpu->a0_output, 0, 255);
+
+    // vbdCycle(simcyc);
+    // vbdBar(cpu->a0_output);
+    // cpu->trigger = vbdFlag() || vbdGetkey() == 't';
 
     if (Verilated::gotFinish())  exit(0);
   }
