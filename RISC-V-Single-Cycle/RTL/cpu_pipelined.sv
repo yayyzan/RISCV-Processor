@@ -122,7 +122,6 @@ module cpu_pipelined #(
   logic pcsrcE;
 
   execute execute (
-    .clk(clk),
     .alusrc(alusrcE),
     .aluctrl(aluctrlE),
     .rf_dout1(rd1E),
