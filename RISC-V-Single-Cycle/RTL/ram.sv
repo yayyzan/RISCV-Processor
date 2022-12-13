@@ -8,13 +8,13 @@ module ram #(
   output logic [             31:0] ramout       //data output
 );
 
-  logic [DATA_WIDTH-1:0] ram_array [32'h00001fff : 32'h0000000]; //according to memory map
+  logic [DATA_WIDTH-1:0] ram_array [32'h00001ffff : 32'h0000000]; //according to memory map
 
   initial begin                                                //initialise with all zeros
     for (int i = 32'h00001000; i < $size(ram_array); i++) begin
       ram_array[i] = 8'b0;
     end
-    // $readmemh("bignum.hex", ram_array);
+    //$readmemh("....mem", ram_array, 32'h10000); // ....mem is the pdf mem file to test
   end
 
   always_comb begin 

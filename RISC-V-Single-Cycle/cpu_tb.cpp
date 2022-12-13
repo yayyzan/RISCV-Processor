@@ -5,7 +5,7 @@
 #include <iomanip>
 
 #include "vbuddy.cpp"     // include vbuddy code
-#define MAX_SIM_CYC 1000000000
+#define MAX_SIM_CYC 10000000
 
 int main(int argc, char **argv, char **env) {
   int simcyc;     // simulation clock count
@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **env) {
   cpu->rst = 0;
 
   if (vbdOpen()!=1) return(-1);
-  vbdHeader("L3T2:Delay");
+  vbdHeader("singlecycle_pddftest");
   vbdSetMode(0);   
 
 
@@ -38,9 +38,7 @@ int main(int argc, char **argv, char **env) {
       cpu->clk = !cpu->clk;
       cpu->eval ();
     }
-    vbdCycle(simcyc);
-    vbdBar(cpu->a0_output);
-    cpu->trigger = vbdFlag() || vbdGetkey() == 't';
+    if(simcyc >900000) vbdPlot(cpu->a0_output, 0, 255);
     // std::cout << cpu->a0_output << std::endl;
     // std::stringstream stream;
     // stream << std::hex << cpu->a0_output;
