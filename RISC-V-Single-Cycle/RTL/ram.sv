@@ -14,7 +14,7 @@ module ram #(
     for (int i = 32'h00001000; i < $size(ram_array); i++) begin
       ram_array[i] = 8'b0;
     end
-    $readmemh("./mem/<filename>.mem", ram_array, 32'h10000); // ....mem is pdf mem file to test
+    // $readmemh("./mem/sine.mem", ram_array, 32'h10000); // ....mem is pdf mem file to test
   end
 
   always_comb begin 

@@ -195,4 +195,8 @@ module cpu_pipelined #(
     endcase
   end
 
+  // always_ff @(posedge clk) begin
+  //   $display("instrF: %h", instrF, " pc: %h", pcF);
+  // end
+
 endmodule

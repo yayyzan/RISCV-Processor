@@ -27,8 +27,8 @@ int main(int argc, char **argv, char **env) {
   cpu_pipelined->rst = 0;
 
   if (vbdOpen()!=1) return(-1);
-  vbdHeader("whole test");
-  vbdSetMode(1);  // set one shot mode for whole test
+  vbdHeader("Pipelined Cpu");
+  vbdSetMode(0);
 
 
   for (simcyc = 0; simcyc < MAX_SIM_CYC; simcyc++) {
@@ -39,8 +39,12 @@ int main(int argc, char **argv, char **env) {
       cpu_pipelined->eval ();
     }
 
-    if(simcyc > 900000) vbdPlot(cpu_pipelined->a0W, 0, 255);
+    // if(simcyc > 900000) vbdPlot(cpu_pipelined->a0W, 0, 255);
+    
 
+    cpu_pipelined->trigger = vbdFlag();
+    vbdBar(cpu_pipelined->a0W);
+    vbdCycle(simcyc);
 
     if (Verilated::gotFinish())  exit(0);
   }
