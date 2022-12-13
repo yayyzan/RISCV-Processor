@@ -24,9 +24,9 @@ module rf #(
     assign a0 = rf_array[10];
 
     always_ff @(posedge clk) begin
-    $display("s4: %h\t", rf_array[20], "s5: %h\t", rf_array[21], "s6: %h\t", rf_array[22], 
-    " a0:%h \t", a0 ," a1: %h\t", rf_array[11], " a2: %h\t", rf_array[12], "a3: %h\t", rf_array[13], 
-    "a4: %h\t", rf_array[14], "a5: %h\t", rf_array[15], "a6: %h\t", rf_array[16]);
+    $display(" s5: %h\t", rf_array[21], " s6: %h\t", rf_array[22], " s7: %h\t", rf_array[23], 
+    " a0:%h \t", a0 ," a1: %h\t", rf_array[11], " a2: %h\t", rf_array[12], " a3: %h\t", rf_array[13], 
+    " a4: %h\t", rf_array[14], " a5: %h\t", rf_array[15], " a6: %h\t", rf_array[16]);
 
     if (trigger) begin 
         rf_array[9] <= {{31'b0}, 1'b1};
