@@ -39,13 +39,6 @@ int main(int argc, char **argv, char **env) {
       cpu->eval ();
     }
     if(simcyc >900000) vbdPlot(cpu->a0_output, 0, 255);
-    // std::cout << cpu->a0_output << std::endl;
-    // std::stringstream stream;
-    // stream << std::hex << cpu->a0_output;
-    // std::string result(stream.str());
-
-    // std::cout << "a0out:  " << result << std::endl;
-
 
     if (Verilated::gotFinish())  exit(0);
   }
