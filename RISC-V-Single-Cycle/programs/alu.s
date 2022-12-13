@@ -3,6 +3,7 @@ nop
 nop
 srai a0, a0, 16
 addi t0, zero, 1
+nop
 
 alutest:
     addi s5, a0, 0x10 #s5: 00001ef1
