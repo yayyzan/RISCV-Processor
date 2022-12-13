@@ -41,5 +41,4 @@ module execute #(
   //   $display("pcsrc: %b", pcsrc, " eq: %b", eq, " jumpaddr: %h", jumpaddress);
   // end
 
-
 endmodule
