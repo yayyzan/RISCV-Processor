@@ -3,7 +3,7 @@ uppertest:
    lui t3, 0xff000
    nop
    nop
-   addi t3, t3, 0xc
+   addi t3, t3, 0x14
    auipc a3, 0xff000   #a3 = 0000000c
    nop
    nop
