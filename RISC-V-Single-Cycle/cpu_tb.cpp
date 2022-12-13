@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **env) {
   cpu_pipelined->rst = 0;
 
   if (vbdOpen()!=1) return(-1);
-  vbdHeader("L3T2:Delay");
+  vbdHeader("pipeline_pdftest");
   vbdSetMode(0);   
 
 
@@ -38,9 +38,7 @@ int main(int argc, char **argv, char **env) {
       cpu_pipelined->clk = !cpu_pipelined->clk;
       cpu_pipelined->eval ();
     }
-    vbdCycle(simcyc);
-    vbdBar(cpu_pipelined->a0W);
-    cpu_pipelined->trigger = vbdFlag() || vbdGetkey() == 't';
+    if(simcyc>900000) vbdPlot(cpu_pipelined->a0W, 0, 255);
     // std::cout << cpu_pipelined->a0_output << std::endl;
     // std::stringstream stream;
     // stream << std::hex << cpu_pipelined->a0_output;

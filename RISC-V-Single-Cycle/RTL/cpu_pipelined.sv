@@ -195,8 +195,4 @@ module cpu_pipelined #(
     endcase
   end
 
-  always_ff @(posedge clk) begin
-    $display("ins: %h", instrF, " progaddr: %h", pcF, "\n");
-  end
-
 endmodule
