@@ -38,13 +38,8 @@ int main(int argc, char **argv, char **env) {
       cpu_pipelined->clk = !cpu_pipelined->clk;
       cpu_pipelined->eval ();
     }
-    if(simcyc>900000) vbdPlot(cpu_pipelined->a0W, 0, 255);
-    // std::cout << cpu_pipelined->a0_output << std::endl;
-    // std::stringstream stream;
-    // stream << std::hex << cpu_pipelined->a0_output;
-    // std::string result(stream.str());
 
-    // std::cout << "a0out:  " << result << std::endl;
+    if(simcyc > 900000) vbdPlot(cpu_pipelined->a0W, 0, 255);
 
 
     if (Verilated::gotFinish())  exit(0);

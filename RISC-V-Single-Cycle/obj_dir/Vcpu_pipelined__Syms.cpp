@@ -3,21 +3,24 @@
 
 #include "Vcpu_pipelined__Syms.h"
 #include "Vcpu_pipelined.h"
-
-
+#include "Vcpu_pipelined___024root.h"
 
 // FUNCTIONS
-Vcpu_pipelined__Syms::Vcpu_pipelined__Syms(Vcpu_pipelined* topp, const char* namep)
-    // Setup locals
-    : __Vm_namep(namep)
-    , __Vm_activity(false)
-    , __Vm_baseCode(0)
-    , __Vm_didInit(false)
-    // Setup submodule names
+Vcpu_pipelined__Syms::~Vcpu_pipelined__Syms()
 {
-    // Pointer to top level
-    TOPp = topp;
+}
+
+Vcpu_pipelined__Syms::Vcpu_pipelined__Syms(VerilatedContext* contextp, const char* namep, Vcpu_pipelined* modelp)
+    : VerilatedSyms{contextp}
+    // Setup internal state of the Syms class
+    , __Vm_modelp{modelp}
+    // Setup module instances
+    , TOP{this, namep}
+{
+    // Configure time unit / time precision
+    _vm_contextp__->timeunit(-12);
+    _vm_contextp__->timeprecision(-12);
     // Setup each module's pointers to their submodules
     // Setup each module's pointer back to symbol table (for public functions)
-    TOPp->__Vconfigure(this, true);
+    TOP.__Vconfigure(true);
 }
