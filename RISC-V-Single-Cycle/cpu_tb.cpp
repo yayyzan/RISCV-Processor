@@ -21,14 +21,14 @@ int main(int argc, char **argv, char **env) {
   Verilated::traceEverOn(true);
   VerilatedVcdC* tfp = new VerilatedVcdC;
   cpu_pipelined->trace (tfp, 99);
-  tfp->open ("cpu_pipelined.vcd");
+  tfp->open ("whole.vcd");
 
   cpu_pipelined->clk = 0;
   cpu_pipelined->rst = 0;
 
   if (vbdOpen()!=1) return(-1);
-  vbdHeader("L3T2:Delay");
-  vbdSetMode(0);   
+  vbdHeader("whole test");
+  vbdSetMode(1);  // set one shot mode for whole test
 
 
   for (simcyc = 0; simcyc < MAX_SIM_CYC; simcyc++) {

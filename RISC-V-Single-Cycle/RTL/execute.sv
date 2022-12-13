@@ -36,9 +36,8 @@ module execute #(
     pcsrc = opcode >= 7'h67 | (opcode == 7'h63 & ((!eq & (funct3 == 3'h0 | funct3 == 3'h5 | funct3 == 3'h7)) | (eq & (funct3 == 3'h1 | funct3 == 3'h4 | funct3 == 3'h6)))); 
   end
 
-  always_ff @(posedge clk) begin
-    $display("pcsrc: %b", pcsrc, " eq: %b", eq, " jumpaddr: %h", jumpaddress);
-  end
-
+  // always_ff @(posedge clk) begin
+  //   $display("pcsrc: %b", pcsrc, " eq: %b", eq, " jumpaddr: %h", jumpaddress);
+  // end
 
 endmodule
