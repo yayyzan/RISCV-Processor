@@ -122,7 +122,7 @@ module cpu_pipelined #(
   logic pcsrcE;
 
   execute execute (
-    .clk(clk),
+    // .clk(clk),
     .alusrc(alusrcE),
     .aluctrl(aluctrlE),
     .rf_dout1(rd1E),
@@ -193,10 +193,6 @@ module cpu_pipelined #(
       2'b10:   resultW = pcplusfourW;
       default: resultW = aluresultW;
     endcase
-  end
-
-  always_ff @(posedge clk) begin
-    $display("ins: %h", instrF, " progaddr: %h", pcF, "\n");
   end
 
 endmodule

@@ -1,7 +1,7 @@
 module execute #(
     parameter D_WIDTH = 32
 ) (
-    input logic clk,
+    // input logic clk,
     input logic alusrc,
     input logic [3:0] aluctrl,
     input logic [D_WIDTH-1:0] rf_dout1,
