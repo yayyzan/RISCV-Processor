@@ -14,7 +14,6 @@ module ram #(
     for (int i = 32'h00001000; i < $size(ram_array); i++) begin
       ram_array[i] = 8'b0;
     end
-    // $readmemh("bignum.hex", ram_array);
   end
 
   always_comb begin 
