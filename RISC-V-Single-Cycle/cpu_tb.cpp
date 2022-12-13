@@ -21,14 +21,14 @@ int main(int argc, char **argv, char **env) {
   Verilated::traceEverOn(true);
   VerilatedVcdC* tfp = new VerilatedVcdC;
   cpu->trace (tfp, 99);
-  tfp->open ("whole.vcd");
+  tfp->open ("alu.vcd");
 
   cpu->clk = 0;
   cpu->rst = 0;
 
   if (vbdOpen()!=1) return(-1);
-  vbdHeader("singlecycle_pddftest");
-  vbdSetMode(0);   
+  vbdHeader("whole test");
+  vbdSetMode(1);  // set one shot mode for whole test
 
 
   for (simcyc = 0; simcyc < MAX_SIM_CYC; simcyc++) {
@@ -42,13 +42,6 @@ int main(int argc, char **argv, char **env) {
     vbdCycle(simcyc);
     // vbdBar(cpu->a0W);
     cpu->trigger = vbdFlag() || vbdGetkey() == 't';
-    // std::cout << cpu->a0_output << std::endl;
-    // std::stringstream stream;
-    // stream << std::hex << cpu->a0_output;
-    // std::string result(stream.str());
-
-    // std::cout << "a0out:  " << result << std::endl;
-
 
     if (Verilated::gotFinish())  exit(0);
   }
