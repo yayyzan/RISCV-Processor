@@ -1,8 +1,12 @@
 uppertest:
    lui a1, 0x12345
    lui t3, 0xff000
+   nop
+   nop
    addi t3, t3, 0xc
    auipc a3, 0xff000   #a3 = 0000000c
+   nop
+   nop
    bne a3, t3, upper_failed
    jal ra, upper_passed
 
@@ -17,9 +21,16 @@ no_jump_test:
 
 memtest:
     li a0, 0x1ee10000 # a0: 1ee1000
+    nop
+    nop
     srai a0, a0, 16   # a0: 00001ee1
+    nop
+    nop
     sh a0, 0xE(zero)  # stores 1ee10000 at 0xc in memory
+    nop
+    nop
     sh a0, 0xC(zero)  # stores 1ee11ee1 at 0xc in memory
+
     lw a1, 0xC(zero)  # a1: 1ee11ee1
     lhu a2, 0xD(zero) # a2: e11e 
     lh a3, 0xD(zero)  # a3: ffffe11e
@@ -35,6 +46,7 @@ wait_for_check:
 jump_test:
     addi a2, zero, 0
     addi a1, zero, 0x1
+    nop
 	beq a2, zero, passed1           #a2 = zero, branch to passed1 should occur 
 	j ijump
 
