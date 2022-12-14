@@ -15,7 +15,7 @@ module instrmem #(
   end
 
   assign dout = {
-    {rom_array[address]}, {rom_array[address+1]}, {rom_array[address+2]}, {rom_array[address+3]}
+    {rom_array[address + 3]}, {rom_array[address + 2]}, {rom_array[address + 1]}, {rom_array[address]}
   };
 
 endmodule
