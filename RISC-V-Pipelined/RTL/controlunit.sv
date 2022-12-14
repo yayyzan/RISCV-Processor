@@ -43,7 +43,7 @@ module controlunit (
     case (aluop)
       0: aluctrl = 0; // load or store or add upper
       1: aluctrl = {1'b0, !funct3[2], funct3[2], funct3[1]}; // branch
-      2: aluctrl = {funct7 & ((imm & funct3 == 5) | (rg & (funct3 == 5| funct3 == 0))), funct3}; // reg or imm
+      2: aluctrl = {funct7 & ((imm & funct3 == 5) | (rg & (funct3 == 5 | funct3 == 0))), funct3}; // reg or imm
       3: aluctrl = 15; //load upper
       default: aluctrl = 9;
     endcase
