@@ -34,7 +34,12 @@ module execute #(
 
   always_comb begin
     jumpaddress = jbmux ? aluout : prog_addr + immop;
-    pcsrc = opcode >= 7'h67 | (opcode == 7'h63 & ((!eq & (funct3 == 3'h0 | funct3 == 3'h5 | funct3 == 3'h7)) | (eq & (funct3 == 3'h1 | funct3 == 3'h4 | funct3 == 3'h6)))); 
+    case(opcode)
+      99: pcsrc = eq ? (funct3 == 1 | funct3 == 4 | funct3 == 6) : (funct3 == 0 | funct3 == 5 | funct3 == 7); //branch
+      103: pcsrc = 1; // jump
+      111: pcsrc = 1; // jump 
+      default: pcsrc = 0;
+    endcase
   end
 
   // always_ff @(posedge clk) begin
