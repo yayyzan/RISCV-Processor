@@ -10,12 +10,12 @@ module instrmem #(
 
   initial begin
     $display("Loading rom.");
-    $readmemh("./programs/pdf.hex", rom_array);
+    $readmemh("./programs/whole.hex", rom_array);
     $display("Program written to ROM successfully");
   end
 
   assign dout = {
-    {rom_array[address]}, {rom_array[address+1]}, {rom_array[address+2]}, {rom_array[address+3]}
+    {rom_array[address + 3]}, {rom_array[address + 2]}, {rom_array[address + 1]}, {rom_array[address]}
   };
 
 endmodule
