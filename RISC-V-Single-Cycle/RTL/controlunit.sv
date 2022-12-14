@@ -42,7 +42,7 @@ module controlunit (
       99: pcsrc = eq ? (funct3 == 1 | funct3 == 4 | funct3 == 6) : (funct3 == 0 | funct3 == 5 | funct3 == 7); //branch
       103: pcsrc = 1; // jump
       111: pcsrc = 1; // jump 
-    default: pcsrc = 0;
+      default: pcsrc = 0;
     endcase
   end
 
