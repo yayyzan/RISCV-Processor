@@ -48,7 +48,7 @@ The Read me file includes instructions on how to replicate our tests and view th
 
 The make file will assemble the .s file, create a formatted to little endian .hex file and load it into the instruction rom.
 
-## **Note Regarding trigger**
+### **Note Regarding trigger**
 
 Trigger is **wired directly** to s1 in the register file as shown below:
 ```systemverilog
@@ -57,3 +57,7 @@ Trigger is **wired directly** to s1 in the register file as shown below:
   end
 ```
 Please be mindful of this when creating an assembly program.
+
+### **Note regarding [Instruction memory](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/Pipelined-Cpu/RISC-V-Pipelined/RTL/instrmem.sv)**
+
+Do **NOT** Add multiple `$readmemh()` lines inside the instruction memory module. This is due to the way the `sed` command in the `make` shell script is used. 
