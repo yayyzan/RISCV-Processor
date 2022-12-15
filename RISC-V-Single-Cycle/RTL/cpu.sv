@@ -89,8 +89,9 @@ module cpu #(
       .read_data(interm_loadout)
   );
 
-//   always_ff @(posedge clk) begin
-//     $display("ins: %h", interm_ins, " progaddr: %h", prog_addr, "\n");
-//   end
+  //   Display statement for whole and alu program
+  //   always_ff @(posedge clk) begin
+  //     $display("ins: %h", interm_ins, " progaddr: %h", prog_addr, "\n");
+  //   end
 
 endmodule

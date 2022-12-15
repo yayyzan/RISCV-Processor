@@ -39,8 +39,10 @@ int main(int argc, char **argv, char **env) {
       cpu->eval ();
     }
 
+    //Uncomment the following line for pdf.s
     // if(simcyc > 900000) vbdPlot(cpu->a0_output, 0, 255);
 
+    // Uncomment the following lines for F1, Alu test, Whole test. Ensure that they are commented for pdf program
     // vbdCycle(simcyc);
     // vbdBar(cpu->a0_output);
     // cpu->trigger = vbdFlag() || vbdGetkey() == 't';
