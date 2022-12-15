@@ -20,7 +20,7 @@ module alu #(
       4'b0010: aluout = {{31'b0}, {(signed'(aluop1) < signed'(aluop2))}}; //set less than
       4'b0011: aluout = {{31'b0}, {(aluop1 < aluop2)}};  //set less than uns
       4'b0100: aluout = aluop1 ^ aluop2;
-      4'b0101: aluout = aluop1 >> aluop2;  //shift right logical 
+      4'b0101: aluout = aluop1 >> aluop2[4:0];  //shift right logical 
       4'b1101: aluout = $signed(aluop1) >>> aluop2[4:0];  // shift right arr
       4'b0110: aluout = aluop1 | aluop2;
       4'b0111: aluout = aluop1 & aluop2;
