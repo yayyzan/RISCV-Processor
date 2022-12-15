@@ -195,8 +195,9 @@ module cpu_pipelined #(
     endcase
   end
 
+  // Display statement for whole and alu program
   // always_ff @(posedge clk) begin
-  //   $display("instrF: %h", instrF, " pc: %h", pcF);
+  //   $display("instrF: %h", instrF, " pc: %h", pcF, "\n");
   // end
 
 endmodule

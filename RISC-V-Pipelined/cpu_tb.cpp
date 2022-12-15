@@ -28,7 +28,7 @@ int main(int argc, char **argv, char **env) {
 
   if (vbdOpen()!=1) return(-1);
   vbdHeader("Pipelined Cpu");
-  vbdSetMode(0);
+  vbdSetMode(1);
 
 
   for (simcyc = 0; simcyc < MAX_SIM_CYC; simcyc++) {
@@ -39,12 +39,13 @@ int main(int argc, char **argv, char **env) {
       cpu_pipelined->eval ();
     }
 
-    // if(simcyc > 900000) vbdPlot(cpu_pipelined->a0W, 0, 255);
+    //Uncomment the following line for pdf.s
+    // if(simcyc > 900000 && simcyc % 15 == 0) vbdPlot(cpu_pipelined->a0W, 0, 255);
     
-
-    cpu_pipelined->trigger = vbdFlag();
-    vbdBar(cpu_pipelined->a0W);
-    vbdCycle(simcyc);
+    // Uncomment the following Lines for F1, Alu test, Whole Test, Ensure that they are commented for pdf program
+    // cpu_pipelined->trigger = vbdFlag();
+    // vbdBar(cpu_pipelined->a0W);
+    // vbdCycle(simcyc);
 
     if (Verilated::gotFinish())  exit(0);
   }
