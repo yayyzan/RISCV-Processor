@@ -140,13 +140,36 @@ We don't have a 2 bit resultsrcW to select from 3 inputs in the multiplexer as s
 
 ### **2.3 Testing Pipelined-CPU**
 
-After I made the top-level module, I tested it by running the f1 program (see [testing video](test for cpu/pipelined top test))
+After I made the top-level module, I tested it by running the F1 program (see [testing video](test for cpu/pipelined top test)). This is only a brief test. Detailed tests are later done by Jie ([see his personal statement]())
 
 <br/>
 
 ## 3. Testing Programs
 
-Instead of GTKWave, most of the CPU was tested with the use of display statements (see Omar's [personal statement]() for more detail).  
+Instead of GTKWave, most of the CPU was tested with the use of display statements (see Omar's [personal statement]() for more detail).  The "whole" and "alu" program are created by Omar (see Omar's [personal statement]() for more detail).
+
+**Method of verifying Alu:** 
+
+According to the program, if the result is the same as the table below, the alu is functioning correctly.
+
+| Register | Value    |
+| -------- | -------- |
+| s5       | 00001ef1 |
+| s6       | 00001ef0 |
+| s7       | f0000000 |
+| a0       | ff000000 |
+| a1       | 0ff00000 |
+| a2       | 00000001 |
+| a3       | 00000000 |
+| a4       | 00000001 |
+| a5       | 00000000 |
+| a6       | 00000001 |
+
+**Method of verifying whole:** 
+
+The verifying of "whole" program has **2 parts**. 
+
+According to the program, if the result is the same as the table below, the whole tests passed successfully.
 
 <br/>
 
@@ -154,17 +177,29 @@ Instead of GTKWave, most of the CPU was tested with the use of display statement
 
 The working process can be verified through consecutive commits from [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/7c2e2a0b6c33c99b57938d1e9c1fa6678b2faffe) to [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/05925d3d70b79d4909db4a96300a6c3e4ce5bc66) in "single_cycle_alu_test" branch. Tested results in [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/344fdc85acd11691e152c2da8be8584ac4a841f2) shown as below.
 
+![](image/single_cycle_alu.png)
+
 <br/>
 
 ### 3.2 Testing Alu For Pipelined-CPU
 
 The working process can be verified through consecutive commits from [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/07418bb6d65e10dc331b7da640ea663edf6329af) to [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/7004fbe5b44a6dd02904340d00cf436561d31c08) in "pipeline_alu_test" branch. Tested results in [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/7004fbe5b44a6dd02904340d00cf436561d31c08) shown as below.
 
+![](image/pipeline_alu.png)
+
 <br/>
 
 ### 3.3 Testing Whole For Single-Cycled-CPU
 
 Simplest test. Tested results in [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/62fe423223b3d327df3daaff98b643469fe7868e) shown as below.
+
+before triggered:
+
+![](image/whole-single-cycle-CPU-before-triggered.png)
+
+After triggered:
+
+![](image/whole-single-cycle-CPU-after-triggered.png)
 
 <br/>
 
@@ -186,4 +221,12 @@ uppertest:
    jal ra, upper_passed
 ```
 
-The working process can be verified through consecutive commits from [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/9044c7851b31cfe7e03022729df10a0544305f1c) to [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/d7a49c11d0ff6d65e3e03d003bb3ca656c5eafab) in "verifying_pipeline" branch. Tested results in [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/d7a49c11d0ff6d65e3e03d003bb3ca656c5eafab) shown as below.Whole
+The working process can be verified through consecutive commits from [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/9044c7851b31cfe7e03022729df10a0544305f1c) to [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/d7a49c11d0ff6d65e3e03d003bb3ca656c5eafab) in "verifying_pipeline" branch. Tested results in [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/d7a49c11d0ff6d65e3e03d003bb3ca656c5eafab) shown as below.
+
+before triggered:
+
+![](image/whole-pipelined-CPU-before-triggered.png)
+
+After triggered:
+
+![](image/whole-single-cycle-CPU-after-triggered.png)
