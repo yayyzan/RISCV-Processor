@@ -89,24 +89,24 @@ After finishing single-cycled one, I was responsible for making the fetch file f
 
 In order to compare whether our results are the same to the The PDF program test results is what we expect, I searched for expected graph for sine, triangle, gaussian and noisy sine PDF. The test graph is generated on vbuddy by <code>vbdBar(cpu->a0_output)</code>.
 
+###Sine
+![expected graph for sine](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/expected%20pdf%20images/sine%20PDF%20graph.jpeg) ![single cycle graph on vbuddy for sine](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20single%20cycle%20pdf/sine%20pdf.jpeg) ![pipelined graph on vbuddy for sine](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20pipelined%20pdf/sine%20pdf.jpeg)
 
-![expected graph for sine](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/expected%20pdf%20images/sine%20PDF%20graph.jpeg) | ![single cycle graph on vbuddy for sine](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20single%20cycle%20pdf/sine%20pdf.jpeg) ![pipelined graph on vbuddy for sine](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20pipelined%20pdf/sine%20pdf.jpeg)
-
-If the graph for generated sine wave is not clear, there is highlighted ones. [single cycle pdf highlighted graph](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/pdf%20images%20with%20highlight/single%20cycle%20sine%20pdf.jpeg) [pipelined pdf highlighted graph](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/pdf%20images%20with%20highlight/pipelined%20sine%20pdf.jpeg) 
+If the graph for generated sine wave is not clear, there is highlighted ones. ![single cycle pdf highlighted graph](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/pdf%20images%20with%20highlight/single%20cycle%20sine%20pdf.jpeg) ![pipelined pdf highlighted graph](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/pdf%20images%20with%20highlight/pipelined%20sine%20pdf.jpeg) 
 Obviously, both single cycle and pipelined pdf gragh has a shape of valley, matching to the expected graph online. 
 
 
-
+###Triangle
 ![expected graph for triangle](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/expected%20pdf%20images/triangle%20PDF%20graph.jpeg)
 ![single cycle graph on vbuddy for triangle](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20single%20cycle%20pdf/triangle%20pdf.jpeg) 
 ![pipelined graph on vbuddy for triangle](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20pipelined%20pdf/triangle%20pdf.jpeg) 
 
-If the graph for generated triangle wave is not clear, there is highlighted ones. [single cycle pdf highlighted graph](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/pdf%20images%20with%20highlight/single%20cycle%20triangle%20pdf.jpeg) [pipelined pdf highlighted graph](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/pdf%20images%20with%20highlight/pipelined%20triangle%20pdf.jpeg) 
+If the graph for generated triangle wave is not clear, there is highlighted ones. ![single cycle pdf highlighted graph](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/pdf%20images%20with%20highlight/single%20cycle%20triangle%20pdf.jpeg) ![pipelined pdf highlighted graph](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/pdf%20images%20with%20highlight/pipelined%20triangle%20pdf.jpeg) 
 Obviously, both single cycle and pipelined pdf gragh generate a triangular wave, matching to the expected graph online.
 
 
 
-
+###Gaussian
 ![expected graph for gaussian](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/expected%20pdf%20images/gaussian%20PDF%20graph.jpeg)
 ![single cycle graph on vbuddy for gaussian](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20single%20cycle%20pdf/gaussian%20pdf.jpeg) 
 ![pipelined graph on vbuddy for gaussian](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20pipelined%20pdf/gaussian%20pdf.jpeg) 
@@ -115,7 +115,7 @@ Obviously, both single cycle and pipelined pdf gragh has a shape of a mountain, 
 
 
 
-
+###Noisy sine
 ![expected graph for noisy sine](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/expected%20pdf%20images/noisy%20sine%20PDF%20graph.jpeg) 
 ![single cycle graph on vbuddy for noisy sine](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20single%20cycle%20pdf/noisy%20pdf.jpeg)
 ![pipelined graph on vbuddy for noisy sine](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/tested%20images%20for%20pipelined%20pdf/noisy%20sine%20pdf.jpeg)
