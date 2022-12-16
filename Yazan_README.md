@@ -66,7 +66,7 @@ Pcwritemux signal selects which data to write the registers with. Either PC + 4 
 
 3. `addupper = aupper = opcode == 23;`
 
-Addupper is a control signal such that, when 0, aluop1 equals regop1, and when 1, aluop1 is PC. Therefore, it only checks for an add upper immediate instruction. Upper immediate implementation will be discussed later as I was the one who implemented it.
+Addupper is a control signal such that, when 0, aluop1 equals regop1, and when 1, aluop1 is PC. Therefore, it only checks for an add upper immediate instruction. 
 
 **2. pcsrc Implementation**
 
