@@ -63,9 +63,9 @@ However, the method **doesn't work**. The expression is expected to be **constan
 
 As a result, I have to use case inside case to do bit manipulation (see **"loadmem.sv"** [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/e38c256fddaf8844b7661ac7581769e3145bd7b8) and **"storemem.sv"** in [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/5220d066a6100a3f4b99799e2f8e87497375d4cc)). 
 
+<br/>
 
-
-b) Syntax errors are always annoying. By looking at **"verilator --help"**, i created **"check.sh"** to help me find syntax error in [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/0984726b75c61bdf40da9bd350fcc64ec28b5891). 
+b) Syntax errors are always annoying. By looking at **"verilator --help"**, i created **"check.sh"** to help me find syntax error in [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/0984726b75c61bdf40da9bd350fcc64ec28b5891). **"-Wall" means enable all style warnings and "--lint-only" means lint but do not make output**.
 
 ```bash
 file=loadmem #enter any module you want to check syntax error 
@@ -73,9 +73,13 @@ file=loadmem #enter any module you want to check syntax error
 verilator -Wall --lint-only ${file}.sv
 ```
 
-**"-Wall" means enable all style warnings and "--lint-only" means lint but do not make output**.
+However, the file is not executable in the beginning (Error image shown below). 
 
+![](image/not_executable.png)
 
+This is due to files on Linux don't have the execute permission by default. Use ` chomod a+w` to solve this problem. "a+w" means **for all users add executable permission**.
+
+<br/>
 
 c) **USB port varies** when I plug and unplug Vbuddy to Linux. In order to save time in finding USB port, I add one line in "doit.sh" to getting the USB port automatically. **This line is only useful if you are a Linux user.**
 
