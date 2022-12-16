@@ -198,7 +198,7 @@ In order to make it easier for users to run programs on both cores, I created a 
 
 2. The use of `./init.sh` to immediately run the program on the vbuddy.
 
-
+Note that this was done with significant help from [Shuyuan Liu](https://github.com/shuyuan-liu).
 ## Reflection
 
 I was generally satisfied with how the team worked. I think we all communicated effectively and conveyed our messages to each other quickly. I do not have any complaints from that regard and would be happy to work with this same team in the future. Most of the coordination was done by myself, however I hope that the team was satisfied with my actions. If I was to repeat the project I would have loved to have more time to implement more features into the CPU.
