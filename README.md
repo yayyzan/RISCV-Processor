@@ -62,7 +62,7 @@ Please be mindful of this when creating an assembly program.
 
 Do **NOT** Add multiple `$readmemh()` lines inside the instruction memory module. This is due to the way the `sed` command in the `make` shell script is used. 
 
-## Running `./make` on Mac
+## Running `./make.sh` on Mac
 Note that the `./make` script was run on Ubuntu Linux 22.04 and on the GNU version of sed. This may very for different operating systems. For Mac, note the following:
 
 Ensure that you are using the GNU version of `awk`, this can be done by running `brew install gawk`. In addition, modify the `sed` command on line 17 (from the `make.sh`) from:
