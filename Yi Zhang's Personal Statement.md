@@ -126,7 +126,7 @@ This part of work was done in the **"pipelinetest"** branch. The working process
 
 ### **2.2 Select Correct Result To Write Back**
 
-We don't have a 2 bit resultsrcW to select from 3 inputs in the multiplexer as shown in the lecture. Instead, we keep the 1 bit resultsrcW from single-cycled-CPU and add another multiplexer called "pcwritemux" (more detail see omars [personal statements](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/9060ac24b41a67d8eca90d4405951177762604a7)). I concatenated the 2 mux select to achieve the function of a 3:1 mux as shown in the lecture slides.
+We don't have a 2 bit resultsrcW to select from 3 inputs in the multiplexer as shown in the lecture. Instead, we keep the 1 bit resultsrcW from single-cycled-CPU and add another multiplexer called "pcwritemux" (more detail see omars [personal statement](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Omar_Alkhatib_Personal_Statement.md)). I concatenated the 2 mux select to achieve the function of a 3:1 mux as shown in the lecture slides.
 
 ```verilog
  always_comb begin
