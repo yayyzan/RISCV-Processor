@@ -51,7 +51,7 @@ module controlunit (
     
   // always_ff @(posedge clk) begin
   //   $display("eq: %h", eq, " regwrite: %h", regwrite, " aluctrl: %b", aluctrl, " alusrc: %h",
-  //            alusrc, " pcsrc: %h", pcsrc, " aluop: %b", aluop, "\n");
+  //            alusrc, " aluop: %b", aluop, "\n");
   // end
 
 endmodule
