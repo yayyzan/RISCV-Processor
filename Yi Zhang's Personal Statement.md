@@ -140,7 +140,7 @@ We don't have a 2 bit resultsrcW to select from 3 inputs in the multiplexer as s
 
 ### **2.3 Testing Pipelined-CPU**
 
-After I made the top-level module, I tested it by running the F1 program (see [testing video](test for cpu/pipelined top test)). This is only a brief test. Detailed tests are later done by Jie ([see his personal statement]())
+After I made the top-level module, I tested it by running the F1 program (see [testing video](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/test%20for%20cpu/pipelined%20top%20test/pipeline_CPU_test_f1_program.mp4)). This is only a brief test. Detailed tests are later done by Jie ([see his personal statement]())
 
 <br/>
 
