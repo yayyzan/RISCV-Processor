@@ -56,7 +56,7 @@ Throughout our work you will find unique contributions from all team members. A 
 
 - Testing our CPU was made easier by using `$display` statements in specific modules. These were implemented by [Omar](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Omar_Alkhatib_Personal_Statement.md).
 
-- The addition of nops to all test programs made, as well as reference programs, completed by [Jie](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Jie's%20Personal%20Statement.md).
+- The addition of nops to all test programs made, as well as reference programs, completed by [Jie](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Jie's%20Personal%20Statement.md) and [Yi](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Yi%20Zhang's%20Personal%20Statement.md).
 
 - The final verification process required a more complete and exhaustive implementation. This was completed by [Yi](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Yi%20Zhang's%20Personal%20Statement.md) and [Jie](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Jie's%20Personal%20Statement.md).
 
