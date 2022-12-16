@@ -87,7 +87,7 @@ ls /dev/ttyUSB* > vbuddy.cfg
 
 ### 1.3 Testing Data Memory
 
-Done by my Jie. See his [personal statement](xxx).
+Done by my Jie. See his [personal statement](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Jie%20Chen's%20%20Personal%20Statement.md).
 
 <br/>
 
@@ -140,7 +140,9 @@ We don't have a 2 bit resultsrcW to select from 3 inputs in the multiplexer as s
 
 ### **2.3 Testing Pipelined-CPU**
 
-After I made the top-level module, I tested it by running the F1 program (see [testing video](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/test%20for%20cpu/pipelined%20top%20test/pipeline_CPU_test_f1_program.mp4)). This is only a brief test. Detailed tests are later done by Jie ([see his personal statement]())
+After I made the top-level module, I tested it by running the F1 program. This is only a brief test. Detailed tests are later done by Jie ([see his personal statement](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Jie%20Chen's%20%20Personal%20Statement.md))
+
+https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/test%20for%20cpu/pipelined%20top%20test/pipeline_CPU_test_f1_program.mp4
 
 <br/>
 
@@ -167,7 +169,7 @@ According to the program, if the result is the same as the table below, the alu 
 
 **Method of verifying whole:** 
 
-The verifying of "whole" program has **2 parts**. Before the trigger on Vbuddy is pressed, we check the values in **a0 up to a6** manually to see if memory is working successfully, and check **s4** and **s4** for upper test and no jump test. After the trigger is pressed, we run other tests and use **registers as flags** to see if they can pass (see Omar's [personal statement]() for more detail). 
+The verifying of "whole" program has **2 parts**. Before the trigger on Vbuddy is pressed, we check the values in **a0 up to a6** manually to see if memory is working successfully, and check **s4** and **s4** for upper test and no jump test. After the trigger is pressed, we run other tests and use **registers as flags** to see if they can pass (see Omar's [personal statement](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Omar_Alkhatib_Personal_Statement.md) for more detail). 
 
 Pipeline hazards are fixed through software by **adding enough "nop" instructions for result to be ready (see [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/a3afb9d8ead2b5dbab373634bd7d2bb2a93ca709) and [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/9044c7851b31cfe7e03022729df10a0544305f1c)).** Example code shown below. In addition, due to changes in address resulted from adding "nop", I changed Omar's programme a little bit in order to perform the test.
 
@@ -291,4 +293,3 @@ After triggered:
 #### 4.1 Things Can be Improved
 
 - Naming of wires can be improved to become clearer next time.
-
