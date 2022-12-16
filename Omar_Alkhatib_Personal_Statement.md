@@ -53,7 +53,7 @@ bge |0010 | slt rd, rs1, rs2|eq = aluout[0]|
 bltu |0011 | sltu rd, rs1, rs2|eq = aluout[0]|
 bgeu |0011 | sltu rd, rs1, rs2|eq = aluout[0]|  
 
-`eq` would then be taken back into the control unit where some logic is preformed to set the value of pcsrc. The logic for that was discussed between Yazan and I, however it was implemented inside the control unit by [yazan ayyoub]().
+`eq` would then be taken back into the control unit where some logic is preformed to set the value of pcsrc. The logic for that was discussed between Yazan and I, however it was implemented inside the control unit by [Yazan Ayyoub](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Yazan_README.md).
 
 Note that the above design was finalized in this [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/c07bdf2bf7064690c91ec2e7478983f44b769413). Previous commits on the Alu branch had errors.
 
@@ -120,7 +120,7 @@ The wiring is mainly straight forward and follows the diagram from lecture 6. (L
 The diagram is missing 3 key multiplexers needed for the implementation of Upper and jump instructions. These are shown below.
 ![NewCpuDiagram](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/implementedcpu.png)
 
-The first multiplexer is has the select input `addupper` and was added by Yazan. (See his [readme]())
+The first multiplexer is has the select input `addupper` and was added by Yazan. (See his [readme](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Yazan_README.md))
 
 The second multiplexor is used to implement jump instructions. `pcwritemux` controls the result being written to the register file. This will assign result to the signal
 `PCplus4` when the a jump instruction is being executed. (Hence preforming the operation `rd = pc + 4`).  
@@ -131,7 +131,7 @@ Initially to test the CPU, we did not have a complete thorough program. Instead 
 
 Note that the expected output is commented inside each program. The program assembly has been hyperlinked to each test.  
 
-([upper.s](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/RISC-V-Single-Cycle/programs/upperimm.s)) This was tested by Yazan Ayyoub, see his personal [Yazan]().
+([upper.s](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/RISC-V-Single-Cycle/programs/upperimm.s)) This was tested by Yazan Ayyoub, see his personal [Yazan](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Yazan_README.md).
 
 ([memoryprog.s](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/RISC-V-Single-Cycle/programs/memoryprog.s))
 This was tested on jie's [README](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Jie's%20Personal%20Statement.md).
@@ -141,7 +141,7 @@ This was tested on jie's [README](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-
 
 ![img2](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image//memoryprog2.png) -->
 
-The reference program is a code that is a combination of unit tests. It was created by myself and [Yazan]() in order to test all of our branch instructions, some of the memory instructions and some alu instructions.
+The reference program is a code that is a combination of unit tests. It was created by myself and [Yazan](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Yazan_README.md) in order to test all of our branch instructions, some of the memory instructions and some alu instructions.
 
 The section (lines 1 to 14) test that our branch instructions do not branch when they are not supposed to. The next section tests is copied from the memoryprog. The final section (lines 33 to 61) ensures hat our branches branch correctly. This is done by constantly skipping over the instruction addi a4, zero, 99. This allowed us to check that the branch test passed simply by looking at the value of a4 at the end of the program.
 
