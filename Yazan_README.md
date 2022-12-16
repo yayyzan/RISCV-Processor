@@ -261,6 +261,8 @@ Please see [Omars](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Om
 
 - Learning the command line: I see myself always using the command line, even after completing the CPU, due to its convenience and simplicity.
 
+- Learning how to use Git/GitHub: I found Git to be very convenient for group work as it allows members to work in sync. I see myself using it in the future, even for personal projects.
+
 --------
 ## 4.1 What I would do differently
 
@@ -269,6 +271,8 @@ Please see [Omars](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Om
 - I would not implement upper immediate instructions in the cleanup branch because that has caused some confusion. I should have made a new branch which is conventially more suitable.
 
 - I would try to minimize the amount of [unnecessary comments](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/4724db8d71daf9d79114a76b3db90f10f4f8bf80) I make in code. This makes everything look cleaner.
+
+- I overused Git on the terminal: I would make all my changes, big or small, locally, then `add`, `commit`, `push`. I should have utilized the GitHub interface for minor changes as that would have been easier and quicker.
 
 - Lastly, I would add more to the CPU, an example would be data cache.
  
