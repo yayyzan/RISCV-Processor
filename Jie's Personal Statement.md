@@ -15,13 +15,13 @@ When I was designing F1 program, i had made several mistakes and made a number o
 
 <li>I made the LFSR random number generation loop running only one time during each f1 lighting process for the first time. Communicating with Omar, i realized that if it runs only one time each process, the racers will estimate what is the next delay time which is not fair for a game. I changed it before the trigger branch so that it will continuously run before trigger being one.</li>
 
-<li>For the LFSR, I ignore the fact that we only need 4 bits of LFSR which is automatically generated to 32 bits, adding an andi 4 instruction to keep the only last four bits.</li>
+<li>For the LFSR, I ignore the fact that we only need 4 bits of LFSR which is automatically generated to 32 bits, adding an ANDI 4 instruction to keep the only last four bits.</li>
 
 <li>I allocated only one register for the lighting output a0 through the shift 1 and add 1 instruction first time. Obviously, this will make the lowest light not lighting after the first left side shift 1 instruction. Then, i add another register t1 to store the first left side shift a0 then return back to a0 after addi 1 instruction. Therefore, when the next time a0 changes, all lights light up together instead of the upper lights light up firstly. One reflection i got is to be careful with small difference.</li>
 
-<li>I only set the a0 output to 0 in the final for the second version which will creats failure when the first lighting is done and jumps to LFSR again to run the second time. I should also set changing values to 0 so that they can be used again for the next running.</li>
+<li>I only set the a0 output to 0 in the final of the second version which will creats failure when jumping to LFSR again to run the second time. I should set changing values to 0 so that they can be used again for the next running, or the value the program use the second time is the generated value of the first running.</li>
 
-<li>I use only base instruction for first version; however using pseudoinstrucion makes the program looks more simple. Reviewing lecture slide 6 page . Then, I update some base instruction into pseudoinstruction that is more simplified. Also realizing that x0 always has value of 0, I don’t have to set a initialized value of 0. Moreover, whenever I do not want to store pc address for JALR instruction, I can store it in x0 which acts like no storing as register x0 will always be 0.</li>
+<li>I use only base instruction for first version; however using pseudoinstrucion makes the program look more simple. Reviewing lecture slide 6 page 29. Then, I update some base instruction into pseudoinstruction that is more simplified. Also realizing that x0 register always has value of 0, I don’t have to set a initialized value of 0. Moreover, whenever I do not want to store pc address for JALR instruction, I can store it in x0 which acts like not storing since register x0 will always be 0.</li>
 
 *Pseudoinstruction I use:*
 ---
@@ -61,7 +61,7 @@ The single-cycle F1 program is carry out in following steps:
 
 1. It firstly initialized value needed through whole program by using Li instruction.
 
-2. It has a LFSR loop to rolling and generating the random number for delaying with polynomial 1 + $x^3$ + $x^4$  until the trigger, which is stored in the x9 register in hardware, equals to 1(a beqz brunch). I apply andi to extract the x3 and x4 and shift both them to the right most. Then, using xor to get the final bits for new LFSR number and add it to the one which has shifted previous IFSR number left by 1 bit, giving out the final IFSR number. The trigger will goes to 1 each time the user press the button as Omar set the vbdSetMode to 1.
+2. It has a LFSR loop to rolling and generating the random number for delaying with polynomial 1 + $x^3$ + $x^4$  until the trigger, which is stored in the x9 register in hardware, equals to 1(a beqz branch). I apply ANDI to extract the x3 and x4 and shift both them to the right most. Then, using XOR to get the final bits for new LFSR number and add it to the one which has shifted previous IFSR number left by 1 bit, giving out the final IFSR number. The trigger will goes to 1 each time the user press the button as Omar set the vbdSetMode to 1.
 
 3. Then, it goes to light up the light and it will jump to the only subroutine “counter” to run 15 cycles to count approximately 1 second each time. The LIGHTING loop runs until a0 output equals to 255(s3), which means all eight lights are lit.
 
