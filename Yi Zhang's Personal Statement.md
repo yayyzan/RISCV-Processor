@@ -146,7 +146,7 @@ After I made the top-level module, I tested it by running the F1 program (see [t
 
 ## 3. Testing Programs
 
-Instead of GTKWave, most of the CPU was tested with the use of display statements (see Omar's [personal statement]() for more detail).  The "whole" and "alu" program are created by Omar (see Omar's [personal statement]() for more detail).
+Instead of GTKWave, most of the CPU was tested with the use of display statements (see Omar's [personal statement](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Omar_Alkhatib_Personal_Statement.md) for more detail).  The "whole" and "alu" program are created by Omar (see Omar's [personal statement](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Omar_Alkhatib_Personal_Statement.md) for more detail).
 
 **Method of verifying Alu:** 
 
