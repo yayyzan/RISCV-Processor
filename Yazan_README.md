@@ -106,13 +106,13 @@ Instead of using case statements ([which is what I have initially done](https://
 
 | Branch (funct3)| ALU operation (aluctrl)| Why?|
 |----------------|------------------------|-----|
-| beq (000)  | xor (0100)             | xor is great for checking equality, 0 if equal, greater than 0 if not equal.
+| beq (000)  | xor (0100)             | xor is great for checking equality, aluout is 0 if equal, greater than 0 if not equal.
 | bne (001)    | xor (0100)             | Same as above
-| blt (100)   | slt  (0010)             |slt is used to check if aluop1 is less than aluop2, is 1 if less, 0 otherwise.
+| blt (100)   | slt  (0010)             |slt is used to check if aluop1 is less than aluop2, aluout is 1 if less, 0 otherwise.
 | bge (101)    | slt (0010)             | Same as above
-| bltu (110)   | sltu (0011)            | sltu allows to check if unsigned aluop1 is less than unsigned aluop2, is 1 if less, 0 otherwise.
+| bltu (110)   | sltu (0011)            | sltu checks if unsigned aluop1 is less than unsigned aluop2, aluout is 1 if less, 0 otherwise.
 | bgeu (111)  | sltu (0011)            | Same as above
-
+ 
 The following shows the approach I have taken if aluop == 01.
 
 - aluctrl[3] is always 1'b0. This can be seen. [Karnaugh map](./iac%20ss%20yazan%20/aluctrl%5B3%5D.jpg)
