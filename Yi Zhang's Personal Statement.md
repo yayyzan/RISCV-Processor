@@ -167,9 +167,55 @@ According to the program, if the result is the same as the table below, the alu 
 
 **Method of verifying whole:** 
 
-The verifying of "whole" program has **2 parts**. 
+The verifying of "whole" program has **2 parts**. Before the trigger on Vbuddy is pressed, we check the values in **a0 up to a6** manually to see if memory is working successfully, and check **s4** and **s4** for upper test and no jump test. After the trigger is pressed, we run other tests and use **registers as flags** to see if they can pass (see Omar's [personal statement]() for more detail). 
 
-According to the program, if the result is the same as the table below, the whole tests passed successfully.
+Pipeline hazards are fixed through software by **adding enough "nop" instructions for result to be ready (see [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/a3afb9d8ead2b5dbab373634bd7d2bb2a93ca709) and [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/9044c7851b31cfe7e03022729df10a0544305f1c)).** Example code shown below. In addition, due to changes in address resulted from adding "nop", I changed Omar's programme a little bit in order to perform the test.
+
+```
+uppertest:
+   lui a1, 0x12345
+   lui t3, 0xff000
+   nop
+   nop
+   addi t3, t3, 0x14
+   auipc a3, 0xff000
+   nop
+   nop
+   bne a3, t3, upper_failed
+   jal ra, upper_passed
+```
+
+According to the program, if the result is the same as the table below, the "whole" tests passed successfully.
+
+before triggered: 
+
+| Register | Value    |
+| -------- | -------- |
+| s4       | 00000001 |
+| s5       | 00000001 |
+| s6       | 00000000 |
+| a0       | 00001ee1 |
+| a1       | 1ee11ee1 |
+| a2       | 0000e11e |
+| a3       | ffffe11e |
+| a4       | 0000001e |
+| a5       | 00000000 |
+| a6       | ffff1ee1 |
+
+after triggered:
+
+| Register | Value    |
+| -------- | -------- |
+| s4       | 00000001 |
+| s5       | 00000001 |
+| s6       | 00000001 |
+| a0       | 00001ee1 |
+| a1       | 00000001 |
+| a2       | 00000000 |
+| a3       | 00000010 |
+| a4       | 0000001e |
+| a5       | 00000000 |
+| a6       | ffffe11e |
 
 <br/>
 
