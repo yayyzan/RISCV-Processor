@@ -1,3 +1,6 @@
+# Jie's Personal Statement
+#### CID: 02030075
+
 **Summary**
 ===============
 During this project, I am responsible for writing instruction program and assembly code for both based RISC-V and pipeline one, fetch top file for pipeline and test PDF/memory program given by the professor. I learned how to apply different instructions such as jal, jalr, li. Moreover, i understood how to allocate register for different kind of instruction and how to add NOPs to prevent data hazard. Learning from my group members, I learn to use git hub, e.g how to use branches. Most importantly, I got an idea of how to reach a collaboration between hardware system verilog and software assembly code, and how to turn real life question like f1 lighting problem into software assembly code which pushed processor to execute.
