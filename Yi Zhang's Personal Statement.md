@@ -2,7 +2,7 @@
 
 **CID:** 07951642408
 
-**Intro:** In the project of **[EIE2-IAC-Autumn-Term-Team-30](https://github.com/Yi-Zhang-IC/EIE2-IAC-Autumn-Term-Team-30)**, I was responsible for designing Data Memory for single-cycled-CPU, Data Memory and Top for pipelined-CPU, and Testing program of "Whole" and "Alu".
+**Intro:** In the project of **[EIE2-IAC-Autumn-Term-Team-30](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30)**, I was responsible for designing Data Memory for single-cycled-CPU, Data Memory and Top for pipelined-CPU, and Testing program of "Whole" and "Alu".
 
 <br/>
 
