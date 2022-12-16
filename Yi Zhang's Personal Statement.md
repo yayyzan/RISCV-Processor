@@ -35,7 +35,7 @@ Before the project was released, our group was initially attempting to build the
 
 In order to show clearly, the top design graph has input with blue colour and output with red colour. For store byte and tore half instructions, we don't want to ruin other information in the word. Therefore, we **feed back** output from ram and replace a specific part of the word with data_in. Part of the code is shown below as an example. The output after bit manipulation is stored into the ram finally. 
 
-```System Verilog
+```Verilog
   always_comb begin
     case (addrmode)
       3'b000:  // store byte
@@ -67,7 +67,7 @@ As a result, I have to use case inside case to do bit manipulation (see **"loadm
 
 b) Syntax errors are always annoying. By looking at **"verilator --help"**, i created **"check.sh"** to help me find syntax error in [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/0984726b75c61bdf40da9bd350fcc64ec28b5891). 
 
-```
+```bash
 file=loadmem #enter any module you want to check syntax error 
 
 verilator -Wall --lint-only ${file}.sv
@@ -79,7 +79,7 @@ verilator -Wall --lint-only ${file}.sv
 
 c) **USB port varies** when I plug and unplug Vbuddy to Linux. In order to save time in finding USB port, I add one line in "doit.sh" to getting the USB port automatically. **This line is only useful if you are a Linux user.**
 
-```
+```bash
 ls /dev/ttyUSB* > vbuddy.cfg
 ```
 
@@ -103,7 +103,7 @@ This part of work was done in the **"pipelinetest"** branch. The working process
 
 **This problem doesn't exist for single-cycled-CPU.** However, since the CPU is now pipelined, the following two instructions are fetched before branch occurs. **We can use the value of pcsrcE as a trigger of flushing.** We know if pcsrcE is one, we will Fetch instruction from target address in the next cycle. Meanwhile, the following two instructions will enter "Decode" section and "Execute" section separately. Therefore, if pcsreE is one, the CPU will flush the two registers containing instructions that we don't want, by simply **resetting the output of the 2 registers to be zeros**. A short example shown as below.
 
-```
+```verilog
   always_ff @(posedge clk) begin
     if (!pcsrcE) begin
       instrD <= instrF;
@@ -124,7 +124,7 @@ This part of work was done in the **"pipelinetest"** branch. The working process
 
 We don't have a 2 bit resultsrcW to select from 3 inputs in the multiplexer as shown in the lecture. Instead, we keep the 1 bit resultsrcW from single-cycled-CPU and add another multiplexer called "pcwritemux" (more detail see omars [personal statements](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/9060ac24b41a67d8eca90d4405951177762604a7)). I concatenated the 2 mux select to achieve the function of a 3:1 mux as shown in the lecture slides.
 
-```
+```verilog
  always_comb begin
     case ({
       pcwritemuxW, resultsrcW  
@@ -171,7 +171,7 @@ The verifying of "whole" program has **2 parts**. Before the trigger on Vbuddy i
 
 Pipeline hazards are fixed through software by **adding enough "nop" instructions for result to be ready (see [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/a3afb9d8ead2b5dbab373634bd7d2bb2a93ca709) and [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/9044c7851b31cfe7e03022729df10a0544305f1c)).** Example code shown below. In addition, due to changes in address resulted from adding "nop", I changed Omar's programme a little bit in order to perform the test.
 
-```
+```assembly
 uppertest:
    lui a1, 0x12345
    lui t3, 0xff000
@@ -253,7 +253,7 @@ After triggered:
 
 Pipeline hazards are fixed through software by **adding enough "nop" instructions for result to be ready (see [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/a3afb9d8ead2b5dbab373634bd7d2bb2a93ca709) and [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/9044c7851b31cfe7e03022729df10a0544305f1c)).** Example code shown below.
 
-```
+```asm
 uppertest:
    lui a1, 0x12345
    lui t3, 0xff000
@@ -276,3 +276,19 @@ before triggered:
 After triggered:
 
 ![](image/whole-single-cycle-CPU-after-triggered.png)
+
+<br/>
+
+### 4. Reflection and Things Can Be Improved
+
+#### 4.1 Reflection
+
+- Excellent group members. 
+- Improved communication skills.
+- Learned a lot about using git through the project.
+- Learned using the `--help` option with command line programs to discover options and settings. e.g. Verilator and various Bash commands.
+
+#### 4.1 Things Can be Improved
+
+- Naming of wires can be improved to become clearer next time.
+
