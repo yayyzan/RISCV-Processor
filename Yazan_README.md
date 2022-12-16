@@ -1,6 +1,6 @@
 # **Yazan Ayyoub README 02120810**
 
- As we delegated tasks, I took responsibility of making the control unit, upper immediate instructions, and eventually the decode stage of the pipelined CPU. I also worked on cleaning up the processor and testing the F1 program. 
+ As we delegated tasks, I took responsibility of making the control unit, upper immediate instructions, and eventually the decode stage of the pipelined CPU. I also worked on [cleaning up](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/tree/cleanup) the processor and testing the F1 program. 
 
  For your information, I do not show as a contributor on the repo. That is because I made my commits with a [generic email](./iac%20ss%20yazan%20/generic%20email.png) that is not shared with my account. My contributions do show, but are not linked to my account. A rookie mistake I learned from.
 
