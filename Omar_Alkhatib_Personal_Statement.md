@@ -146,7 +146,7 @@ The reference program is a code that is a combination of unit tests. It was crea
 The section (lines 1 to 14) test that our branch instructions do not branch when they are not supposed to. The next section tests is copied from the memoryprog. The final section (lines 33 to 61) ensures hat our branches branch correctly. This is done by constantly skipping over the instruction addi a4, zero, 99. This allowed us to check that the branch test passed simply by looking at the value of a4 at the end of the program.
 
 This program was our initial attempt to create a program to test most/all instructions in the cpu. It was later used to develop the whole.s program.
-The Output of the [reference_program](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/RISC-V-Single-Cycle/programs/reference.s)
+The Output of the [reference_program](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/decode/RISC-V-Single-Cycle/programs/reference.s)
 is shown below:
 
 <div>
