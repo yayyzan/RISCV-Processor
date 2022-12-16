@@ -140,13 +140,13 @@ We don't have a 2 bit resultsrcW to select from 3 inputs in the multiplexer as s
 
 ### **2.3 Testing Pipelined-CPU**
 
-After I made the top-level module, I runed 
+After I made the top-level module, I tested it by running the f1 program (see [testing video](test for cpu/pipelined top test))
 
 <br/>
 
 ## 3. Testing Programs
 
-Instead of GTKWave, most of the CPU was tested with the use of display statements (see Omar's [personal statement]() for more detail). 
+Instead of GTKWave, most of the CPU was tested with the use of display statements (see Omar's [personal statement]() for more detail).  
 
 <br/>
 
