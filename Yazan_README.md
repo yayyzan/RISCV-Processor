@@ -164,13 +164,14 @@ I tested memory related signals with [memory.s](https://github.com/EIE2-IAC-Labs
 
 ## 2.1 Necessary changes
 
-To implement the decode stage, I worked on a branch called decode. 
+To implement the decode stage, I worked on a branch called [decode](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/tree/decode).
 
 In the decode branch, I changed the register file so that it writes on a negative clock edge.
 
 I also removed pcsrc and eq from the control unit as those would be determined in the execute stage.
 
-Lastly, I built a top level module with signals/wires represented as `signal_nameD`. I instantiated the new control unit, register file, and sign extender unit (immediate formatter). I then connected the relevent wires together to form the [decode top level](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/Pipelined-Cpu/RISC-V-Pipelined/RTL/decode.sv) block of the pipelined CPU.
+Lastly, I built a top level module with signals/wires represented as `signal_nameD`. I instantiated the new control unit, register file, and sign extender unit (immediate formatter). I then connected the relevent wires together to form the decode block of the pipelined CPU. 
+
 # 3 Upper Immediate Implementation
 
 ## 3.1 Load upper
@@ -272,7 +273,7 @@ Please see [Omars](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Om
 
 - I would try to minimize the amount of [unnecessary comments](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/4724db8d71daf9d79114a76b3db90f10f4f8bf80) I make in code. This makes everything look cleaner.
 
-- I overused Git on the terminal: I would make all my changes, big or small, locally, then `add`, `commit`, `push`. I should have utilized the GitHub interface for minor changes as that would have been easier and quicker.
+- I overused Git on the terminal: I would make all my changes (big and small) locally, then `add`, `commit`, `push`. I should have utilized the GitHub interface for small changes as that would have been easier and quicker.
 
 - Lastly, I would add more to the CPU, an example would be data cache.
  
