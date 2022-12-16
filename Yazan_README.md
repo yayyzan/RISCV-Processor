@@ -196,7 +196,7 @@ If aluctrl == 1111, `aluout = aluop2;`
 -----
 ## 3.2 Add upper
 
-To implement add upper, [a new multiplexer was required](./iac%20ss%20yazan%20/addupper.jpg). I placed it between the ALU and regop1. It takes the current PC value and regop1 as inputs. The output was added in the top-level module as interm_rfpc and is wired to aluop1.
+To implement add upper, [a new multiplexer was required](./iac%20ss%20yazan%20/addupper.jpeg). I placed it between the ALU and regop1. It takes the current PC value and regop1 as inputs. The output was added in the top-level module as interm_rfpc and is wired to aluop1.
 
 A new select from control was needed and called addupper, which sets the MUX's output to PC when 1. By doing that, aluop1 can equal PC and an upper immediate can be added from aluop2. Aluctrl is equal to 0000 in this case.
 
