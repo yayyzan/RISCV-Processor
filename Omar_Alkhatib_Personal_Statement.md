@@ -53,7 +53,7 @@ bge |0010 | slt rd, rs1, rs2|eq = aluout[0]|
 bltu |0011 | sltu rd, rs1, rs2|eq = aluout[0]|
 bgeu |0011 | sltu rd, rs1, rs2|eq = aluout[0]|  
 
-`eq` would then be taken back into the control unit where some logic is preformed to set the value of pcsrc. The logic for that was discussed between Yazan and I, however it was implemented inside the [control unit]().
+`eq` would then be taken back into the control unit where some logic is preformed to set the value of pcsrc. The logic for that was discussed between Yazan and I, however it was implemented inside the control unit by [yazan ayyoub]().
 
 Note that the above design was finalized in this [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/c07bdf2bf7064690c91ec2e7478983f44b769413). Previous commits on the Alu branch had errors.
 
@@ -103,29 +103,29 @@ Initially the output was incorrect because, `eq` was incorrectly set due to mist
 
 However more importantly, I found that I misunderstood the `<` operator in system Verilog. Initially I thought the operator would naturally compare signed values. Thus it understood `0xfffffff = -1`. That is not the case in system Verilog. The operator will treat the values as unsigned at all times. After some research I found that I could typecast using `signed'()` to inform system Verilog to treat the value as a signed number. Lastly, I found that arithmetic shift right was preforming a logical shift right. This was also fixed using the `signed'()` typecast. See [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/c07bdf2bf7064690c91ec2e7478983f44b769413).
 
-Note that the srai only shifts `aluop1` by the bottom 5 bits of aluop2. This was changed in the same [commit]() linked above, however was not changed for srli until it was noticed as a bug [later]().
+Note that the srai only shifts `aluop1` by the bottom 5 bits of aluop2. This was changed in the same [commit](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/c07bdf2bf7064690c91ec2e7478983f44b769413) linked above, however was not changed for srli until it was noticed as a bug [later](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/b7b38948d396d2d0f0669f5431219fad9915f1b3).
 
 The final alu does output the correct values as shown below:
 
-![Aluresult](./imgs/aluresult.png)
+![Aluresult](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/aluresult.png)
 Thus verifying that the alu is indeed working correctly.
 
 ## Creating the top level module
-After all the modules were created, I took the task of assembling the whole CPU together. This was done during one of the lab sessions hence some people are co-authored in the commits. See branch [test]().
+After all the modules were created, I took the task of assembling the whole CPU together. This was done during one of the lab sessions hence some people are co-authored in the commits. See branch [test](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/tree/test).
 
 The wiring is mainly straight forward and follows the diagram from lecture 6. (Link below)
 
-[Cpu diagram From Slides](./imgs/cpulecture6.png)
+[Cpu diagram From Slides](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/cpulecture6.png)
 
 The diagram is missing 3 key multiplexers needed for the implementation of Upper and jump instructions. These are shown below.
-![NewCpuDiagram](./imgs/implementedcpu.png)
+![NewCpuDiagram](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/implementedcpu.png)
 
 The first multiplexer is has the select input `addupper` and was added by Yazan. (See his [readme]())
 
 The second multiplexor is used to implement jump instructions. `pcwritemux` controls the result being written to the register file. This will assign result to the signal
 `PCplus4` when the a jump instruction is being executed. (Hence preforming the operation `rd = pc + 4`).  
 
-The last multiplexor `jbmux` is used to assign the correct pctarget to the instruction memory. This is needed for `jalr` since the target jump address is not relative to the current program counter in a `jalr` instruction (See [lecture 6](./imgs/lect6slide64.PNG)). Thus it needs to be assigned to `rs1 + signExt(Imm)`, which is the output of the alu.  
+The last multiplexor `jbmux` is used to assign the correct pctarget to the instruction memory. This is needed for `jalr` since the target jump address is not relative to the current program counter in a `jalr` instruction (See [lecture 6](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/lect6slide64.PNG)). Thus it needs to be assigned to `rs1 + signExt(Imm)`, which is the output of the alu.  
 
 Initially to test the CPU, we did not have a complete thorough program. Instead we used 3 programs, each test a specific section of the CPU.
 
@@ -137,9 +137,9 @@ Note that the expected output is commented inside each program. The program asse
 This was tested on jie's [README]().
 
 <!-- Output:
-![img1](./imgs/memoryprog1.png)
+![img1](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/memoryprog1.png)
 
-![img2](./imgs//memoryprog2.png) -->
+![img2](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image//memoryprog2.png) -->
 
 The reference program is a code that is a combination of unit tests. It was created in order to test all of our branch instructions, some of the memory instructions and some alu instructions.
 
@@ -151,21 +151,21 @@ The Output of the [reference_program](https://github.com/EIE2-IAC-Labs/iac-riscv
 is shown below:
 
 <div>
-  <img src="./imgs/reference1.png" width = "800px" />
+  <img src="https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/reference1.png" width = "800px" />
   <br/><br/>
 </div>
 
 <div>
-  <img src="./imgs/reference2.png" width = "800px" />
+  <img src="https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/reference2.png" width = "800px" />
   <br/><br/>
 </div>
 
 <div>
-  <img src="./imgs/reference1.png" width = "800px" />
+  <img src="https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/reference1.png" width = "800px" />
   <br/><br/>
 </div>
 
-The [whole.s](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/RISC-V-Single-Cycle/programs/whole.s). (his was tested by Yi, see his personal [Yi]())
+The [whole.s](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/RISC-V-Single-Cycle/programs/whole.s). (his was tested by Yi, see his personal [Yi](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Yi%20Zhang's%20Personal%20Statement.md))
 
 By combining all three tests into one [whole.s](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/RISC-V-Single-Cycle/programs/whole.s) I was able to use some registers as flags to immediately verify if the instructions tested are working.  
 
@@ -178,13 +178,13 @@ s7: 0 --> 1 Inidcates that the branch test passed <br/>
 Note that the memory test does not pass automatically. In order to verify that the memory was working, the user must look at the values in a0 up to a6 and check that they match the expected values. The test will wait (By jumping in its place) until the user verifies that the tests has passed. If the values are correct, the user can press trigger to move onto the next test, otherwise we can terminate the program by pressing `ctrl+c`.
 
 
-The alu is not tested through the whole program, it was tested separately using `alu.test` ([alu.test]()). I found that testing the CPU on the fly using trigger as done for memory was difficult since I would need to display more registers. Instead, I separated the ALU test and ran it on a separate program. Similar to the memory test, the program will load values into registers s4 to s7 and a0 to a6 and its up to the user to check that the values loaded are correct.
+The alu is not tested through the whole program, it was tested separately using `alu.test` ([alu.test](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/Single-Cycle-Cpu/RISC-V-Single-Cycle/programs/alu.s)). I found that testing the CPU on the fly using trigger as done for memory was difficult since I would need to display more registers. Instead, I separated the ALU test and ran it on a separate program. Similar to the memory test, the program will load values into registers s4 to s7 and a0 to a6 and its up to the user to check that the values loaded are correct.
 
 
 ## Creating execute Block
 After the single cycle CPU was completed, we decided to split the work for pipelining the CPU according to stages. I was assigned the execute stage.  
 The execute stage does not have modules other than the alu, hence I created a sub-top module `execute.sv` and instantiated the alu inside it.  
-The key idea in the execute module was the addition of all the jump logic into it. Originally `pcsrc` was determined by the control unit. However, as shown in [lecture 8](./imgs/lecture8diagram.png), this is not the case in a pipelined CPU.
+The key idea in the execute module was the addition of all the jump logic into it. Originally `pcsrc` was determined by the control unit. However, as shown in [lecture 8](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/image/lecture8diagram.png), this is not the case in a pipelined CPU.
 
 In order to implement these changes, Yazan and I agreed on how to move the logic from the control unit to the execute block. This involved identifying which signals needed propagate to the execute stage. Further more, I organized a meeting with Yi (Who was wiring the CPU) explaining this change and a meeting with Jie (Who was working on the fetch stage) to inform him which multiplexers will be moved to the execute phase and how this will effect the fetch module.  
 
@@ -201,4 +201,5 @@ In order to make it easier for users to run programs on both cores, I created a 
 
 
 ## Reflection
+
 I was generally satisfied with how the team worked. I think we all communicated effectively and conveyed our messages to each other quickly. I do not have any complaints from that regard and would be happy to work with this same team in the future. Most of the coordination was done by myself, however I hope that the team was satisfied with my actions. If I was to repeat the project I would have loved to have more time to implement more features into the CPU.
