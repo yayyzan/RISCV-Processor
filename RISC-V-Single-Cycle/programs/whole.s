@@ -25,7 +25,7 @@ memtest:
     lh a3, 0xD(zero)  # a3: ffffe11e
     lb a4, 0xF(zero)  # a4: 0000001e
     sw a3, 0x10(zero) # stores ffff1ee1 at 0x10 in memory
-    lw a6, 0x10(zero) # a6: ffff1ee1
+    lw a6, 0x10(zero) # a6: ffffe11e
 
 wait_for_check:
     beqz s1, wait_for_check #check registers manually, if correct press trigger to continue
