@@ -78,12 +78,12 @@ case(opcode)
     default: pcsrc = 0;
     endcase
 ```
-Since jumps are unconditional, pcsrc is 1 for any jump instruction. However, branches are conditional and since EQ (zero flag) goes back into the control unit, we can check if a condition has been met depending on funct3 and its respective EQ value. If so, the branch will occur as pcsrc will be set to 1.
+Since jumps are unconditional, pcsrc is 1 for any jump instruction. However, branches are conditional and since EQ (zero flag) goes back into the control unit, we can check if a condition has been met depending on funct3 and its respective EQ value. If so, the branch will occur as pcsrc will be set to 1. See EQ implementation [here](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/Single-Cycle-Cpu/RISC-V-Single-Cycle/RTL/alu.sv).
 _____
 ### 1.2.2 ALU decoder 
 _____
 
-| Intsurction | Respective ALUop [1:0] |
+| Instruction | Respective ALUop [1:0] |
 | ----------- | -----------------------|
 | Branch | 01 |
 | Rg or Imm | 10 |
