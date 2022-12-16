@@ -71,7 +71,7 @@ The single-cycle F1 program is carry out in following steps:
 
 While testing, lights light up sequentially after triggered and close after a random time.
 
-*[Pipelined f1 program.s](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/c36f099e80862f1d37aeb35fbb8289a7ac0aaccd) / [Pipelined f1 program.hex](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/c9d345aec947b4e34a7931bd814e76b62fe8d42d)description*
+*[Pipelined f1 program.s](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/c36f099e80862f1d37aeb35fbb8289a7ac0aaccd) / [Pipelined f1 program.hex](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/c9d345aec947b4e34a7931bd814e76b62fe8d42d) description*
 ---
 
 For the F1 program of pipeline, we design it to have only NOP for data hazard. Yi design the [top file cpu_pipelined](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/commit/6784647e81bda93975e9b77a5be15296729e5d90), [yi's personal statement](https://github.com/EIE2-IAC-Labs/iac-riscv-cw-30/blob/main/Yi%20Zhang's%20Personal%20Statement.md) to check whether PCSRC equals to one, which representing that a jump or branch instruction is executed, and reset value in register. Therefore, NOP for control hazard is redundant. Whenever there is a afterward rs(input) register uses a rd(output) register in previsousIn regard to other parts, they are the same to the single-cycle F1 program logic. While testing, the lights light up as the single cycle one.
